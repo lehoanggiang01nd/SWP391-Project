@@ -111,7 +111,7 @@ public class loginServlet extends HttpServlet {
                 
                 response.addCookie(u);
                 response.addCookie(p);
-                response.sendRedirect("user");
+                response.sendRedirect("homepage");
             }
     }
 

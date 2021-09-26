@@ -107,10 +107,10 @@ public class editUserServlet extends HttpServlet {
             String role= request.getParameter("role");
             if(db.editAdmin(id,uname, pass, fname, lname, phone, role)!=0){
                 request.setAttribute("error", "Update suscessfully!");
-                response.sendRedirect("edit_user?id="+id);
+                response.sendRedirect("edituser?id="+id);
             } else{
                 request.setAttribute("error", "Update false!");
-                response.sendRedirect("edit_user?id="+id);
+                response.sendRedirect("edituser?id="+id);
             }
         }
     }

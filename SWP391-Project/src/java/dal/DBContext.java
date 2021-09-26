@@ -22,7 +22,7 @@ public class DBContext {
         try {
             System.out.println(new DBContext().connection);
         } catch (Exception e) {
-            
+            System.out.println(e);
         }
     }
     

@@ -61,15 +61,15 @@ public class ChangePasswordServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String pass = request.getParameter("password");
         
-        HttpSession session = request.getSession();
-        DAO dao = new DAO();
+            HttpSession session = request.getSession();
+            DAO dao = new DAO();
 //        String username = session.getAttribute(pass)
         
             
-           Account user = (Account) session.getAttribute("account");
-           String a = user.getAccount;
-           String b = user.getPassword();
-            dao.changePass(user.getAccount(), pass);
+            Account user = (Account) session.getAttribute("acc");
+            String a = user.getUserName();
+            String b = user.getUserName();
+            dao.changePass(user.getUserName(), pass);
 //        
 
             session.setAttribute("account", user);
