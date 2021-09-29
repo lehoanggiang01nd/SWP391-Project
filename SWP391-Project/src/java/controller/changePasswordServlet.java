@@ -21,7 +21,7 @@ import dal.DAO;
  * @author Cackac
  */
 @WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
-public class ChangePasswordServlet extends HttpServlet {
+public class changePasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
