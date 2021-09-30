@@ -12,8 +12,9 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
         <!-- ===============================================-->
         <!--    Document Title-->
@@ -24,8 +25,19 @@
         <!-- ===============================================-->
         <!--    Favicons-->
         <!-- ===============================================-->
+        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
 
-        <link rel="apple-touch-icon" sizes="180x180" href="rhea/public/assets/img/favicons/apple-touch-icon.png">
+        <!-- Custom styles for this template -->
+        <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this page -->
+        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"
+              <!-- Custom styles for this template -->
+
+              <link rel="apple-touch-icon" sizes="180x180" href="rhea/public/assets/img/favicons/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="rhea/public/assets/img/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="rhea/public/assets/img/favicons/favicon-16x16.png">
         <link rel="shortcut icon" type="image/x-icon" href="rhea/public/assets/img/favicons/favicon.ico">
@@ -57,22 +69,54 @@
                             <li class="nav-item"><a class="nav-link text-600" href="#featuresVideos">Video</a></li>
                             <li class="nav-item"><a class="nav-link text-600" href="#places">Destinations</a></li>
                             <li class="nav-item"><a class="nav-link text-600" href="#booking">Booking </a></li>
-                                <c:if test="${sessionScope.acc != null}">  
-                                <li class="nav-item"><a class="nav-link text-600" href="userprofile?id=${sessionScope.acc.id}">Profile </a></li> 
+
+                            <c:if test="${sessionScope.acc != null}">  
+                                <li class="nav-item"><a class="nav-link text-600" href="user">Profile </a></li> 
                                 </c:if>
                                 <c:if test="${sessionScope.acc.isAdmin == true}" >
-                                <li class="nav-item"><a class="nav-link text-600" href="user">Admin </a></li>
+                                <li class="nav-item"><a class="nav-link text-600" href="#booking">Admin </a></li>
                                 </c:if>
                                 <c:if test="${sessionScope.acc.isBooker == true}" >
                                 <li class="nav-item"><a class="nav-link text-600" href="#booking">Booking </a></li>
                                 </c:if>
-                               
+
                         </ul>
 
+
                         <c:if test="${sessionScope.acc != null}">
-                            <form class="ps-lg-5" action="logout">
-                                <button class="btn btn-lg btn-outline-primary order-0" type="submit">Log Out</button>
-                            </form>
+                            <div >
+
+                                <li class="nav-item dropdown no-arrow">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -30px; margin-left: 30px">
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600" >User</span>
+                                        <img class="img-profile rounded-circle"
+                                             src="img/undraw_profile.svg" style="width:50px;height:50px;">
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                         aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Profile
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Settings
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Activity Log
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </a>
+                                    </div>
+                                </li>
+                            </div>
+
                         </c:if>
                         <c:if test="${sessionScope.acc == null}">
                             <form class="ps-lg-5" action="login">
@@ -80,9 +124,12 @@
                             </form>
                         </c:if>
 
+
                     </div>
                 </div>
+
             </nav>
+
             <section class="py-0">
                 <div class="bg-holder d-none d-md-block" style="background-image:url(rhea/public/assets/img/illustrations/hero.png);background-position:right bottom;background-size:contain;">
                 </div>
@@ -92,7 +139,7 @@
                     <div class="row align-items-center min-vh-75 my-lg-8">
                         <div class="col-md-7 col-lg-6 text-center text-md-start py-8">
                             <h1 class="mb-4 display-1 lh-sm">Travel around <br class="d-block d-lg-none d-xl-block" />the world</h1>
-                            <p class="mt-4 mb-5 fs-1 lh-base">Plan and book your perfect trip with expert advice, <br class="d-none d-lg-block" />travel tips, destination information and <br class="d-none d-lg-block" />inspiration from us.</p><a class="btn btn-lg btn-primary hover-top" href="register.jsp" role="button">Sign Up Now</a>
+                            <p class="mt-4 mb-5 fs-1 lh-base">Plan and book your perfect trip with expert advice, <br class="d-none d-lg-block" />travel tips, destination information and <br class="d-none d-lg-block" />inspiration from us.</p><a class="btn btn-lg btn-primary hover-top" href="#" role="button">Sign Up Now</a>
                         </div>
                     </div>
                 </div>
@@ -739,6 +786,21 @@
         <script src="rhea/public/vendors/plyr/plyr.polyfilled.min.js"></script>
         <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
         <script src="rhea/public/assets/js/theme.js"></script>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
     </body>
