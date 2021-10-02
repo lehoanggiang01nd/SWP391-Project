@@ -64,9 +64,8 @@
                                
                         </ul>
 
-
-                            <div >
-
+                        <c:if test="${sessionScope.acc != null}">
+                            <div>
                                 <li class="nav-item dropdown no-arrow">
                                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -30px; margin-left: 30px">
@@ -99,9 +98,9 @@
                                     </div>
                                 </li>
                             </div>
+                        </c:if>                        
 
 
-                        </c:if>
                         <c:if test="${sessionScope.acc == null}">
                             <form class="ps-lg-5" action="login">
                                 <button class="btn btn-lg btn-outline-primary order-0" type="submit">Sign In</button>
@@ -754,7 +753,27 @@
         <!-- ===============================================-->
         <!--    End of Main Content-->
         <!-- ===============================================-->
+        <script src="rhea/public/vendors/@popperjs/popper.min.js"></script>
+        <script src="rhea/public/vendors/bootstrap/bootstrap.min.js"></script>
+        <script src="rhea/public/vendors/is/is.min.js"></script>
+        <script src="rhea/public/vendors/plyr/plyr.polyfilled.min.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll%22%3E</script>
+        <script src="rhea/public/assets/js/theme.js"></script>
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
 
 
 
@@ -767,7 +786,7 @@
         <script src="rhea/public/vendors/plyr/plyr.polyfilled.min.js"></script>
         <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
         <script src="rhea/public/assets/js/theme.js"></script>
-
+        
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
     </body>
 

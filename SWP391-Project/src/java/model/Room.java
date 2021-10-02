@@ -14,9 +14,9 @@ public class Room {
     private String rName;
     private String desc;
     private String picture;
-    private int OwnerId;
+    private int ownerId;
     private String status;
-    private int Area;
+    private int area;
     private int bedNum;
     private double price;
     private float rating;
@@ -26,14 +26,14 @@ public class Room {
     public Room() {
     }
 
-    public Room(int rid, String rName, String desc, String picture, int OwnerId, String status, int Area, int bedNum, double price, float rating, int placeId, int typeId) {
+    public Room(int rid, String rName, String desc, String picture, int ownerId, String status, int area, int bedNum, double price, float rating, int placeId, int typeId) {
         this.rid = rid;
         this.rName = rName;
         this.desc = desc;
         this.picture = picture;
-        this.OwnerId = OwnerId;
+        this.ownerId = ownerId;
         this.status = status;
-        this.Area = Area;
+        this.area = area;
         this.bedNum = bedNum;
         this.price = price;
         this.rating = rating;
@@ -74,11 +74,11 @@ public class Room {
     }
 
     public int getOwnerId() {
-        return OwnerId;
+        return ownerId;
     }
 
     public void setOwnerId(int OwnerId) {
-        this.OwnerId = OwnerId;
+        this.ownerId = OwnerId;
     }
 
     public String getStatus() {
@@ -90,11 +90,11 @@ public class Room {
     }
 
     public int getArea() {
-        return Area;
+        return area;
     }
 
     public void setArea(int Area) {
-        this.Area = Area;
+        this.area = Area;
     }
 
     public int getBedNum() {
@@ -139,7 +139,7 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" + "rid=" + rid + ", rName=" + rName + ", desc=" + desc + ", picture=" + picture + ", OwnerId=" + OwnerId + ", status=" + status + ", Area=" + Area + ", bedNum=" + bedNum + ", Price=" + price + ", rating=" + rating + ", placeId=" + placeId + ", typeId=" + typeId + '}';
+        return "Room{" + "rid=" + rid + ", rName=" + rName + ", desc=" + desc + ", picture=" + picture + ", OwnerId=" + ownerId + ", status=" + status + ", Area=" + area + ", bedNum=" + bedNum + ", Price=" + price + ", rating=" + rating + ", placeId=" + placeId + ", typeId=" + typeId + '}';
     }
     
     
