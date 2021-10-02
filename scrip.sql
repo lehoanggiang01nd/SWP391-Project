@@ -17,6 +17,7 @@ CREATE TABLE [dbo].[Account](
 	[isBooker] [bit] NULL,
 	[isOwner] [bit] NULL,
 	[Picture] [nvarchar](max) NULL,
+        [Block] [bit] NULL, 
  CONSTRAINT [PK_Account] PRIMARY KEY CLUSTERED 
 (
 	[userId] ASC
