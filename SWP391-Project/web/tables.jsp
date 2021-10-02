@@ -133,11 +133,15 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="tables.jsp">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>User Table</span></a>
             </li>
-
+            <li class="nav-item active">
+                <a class="nav-link" href="roomAdmin.jsp">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Room Table</span></a>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

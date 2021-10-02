@@ -57,22 +57,50 @@
                             <li class="nav-item"><a class="nav-link text-600" href="#featuresVideos">Video</a></li>
                             <li class="nav-item"><a class="nav-link text-600" href="#places">Destinations</a></li>
                             <li class="nav-item"><a class="nav-link text-600" href="#booking">Booking </a></li>
-                                <c:if test="${sessionScope.acc != null}">  
-                                <li class="nav-item"><a class="nav-link text-600" href="userprofile?id=${sessionScope.acc.id}">Profile </a></li> 
-                                </c:if>
-                                <c:if test="${sessionScope.acc.isAdmin == true}" >
-                                <li class="nav-item"><a class="nav-link text-600" href="user">Admin </a></li>
-                                </c:if>
+
                                 <c:if test="${sessionScope.acc.isBooker == true}" >
                                 <li class="nav-item"><a class="nav-link text-600" href="#booking">Booking </a></li>
                                 </c:if>
                                
                         </ul>
 
-                        <c:if test="${sessionScope.acc != null}">
-                            <form class="ps-lg-5" action="logout">
-                                <button class="btn btn-lg btn-outline-primary order-0" type="submit">Log Out</button>
-                            </form>
+
+                            <div >
+
+                                <li class="nav-item dropdown no-arrow">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -30px; margin-left: 30px">
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600" >${sessionScope.acc.lName}</span>
+                                        <img class="img-profile rounded-circle"
+                                             src="img/undraw_profile.svg" style="width:50px;height:50px;">
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                         aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="userprofile?id=${sessionScope.acc.id}">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Profile
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Settings
+                                        </a>
+                                        <c:if test="${sessionScope.acc.isAdmin == true}" >    
+                                        <a class="dropdown-item" href="user">
+                                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Admin
+                                        </a>
+                                        </c:if>    
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="logout" >
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </a>
+                                    </div>
+                                </li>
+                            </div>
+
+
                         </c:if>
                         <c:if test="${sessionScope.acc == null}">
                             <form class="ps-lg-5" action="login">
