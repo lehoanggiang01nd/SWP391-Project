@@ -7,8 +7,8 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Account](
 	[userId] [int] IDENTITY(1,1) NOT NULL,
-	[UserName] [nvarchar](max) NULL,
-	[PassWord] [nvarchar](max) NULL,
+	[UserName] [nvarchar](max) NOT NULL,
+	[PassWord] [nvarchar](max) NOT NULL,
 	[Email] [nvarchar](max) NULL,
 	[FName] [nvarchar](max) NULL,
 	[LName] [nvarchar](max) NULL,
