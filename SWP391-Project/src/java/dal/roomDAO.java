@@ -68,6 +68,37 @@ public class roomDAO extends DBContext{
         }
         return null;
     }
+    public void updateRoom(String rname, String desc, String owner, String status, String area,String bednum,String price,String rating,String placeID,String typeID,int id){
+        
+            String sql="Update Room set [Name]=?,\n" +
+            "  [Description]=?,\n" +
+            "  [OwnerID]=?,\n" +
+            "  [Status]=?,\n" +
+            "  [Area]=?,\n" +
+            "  [BedNumber]=?,\n" +
+            "  [Price]=?,\n" +
+            "  [Rating]=?,\n" +
+            "  [PlaceId]=?,\n" +
+            "  [TypeId] = ?\n" +
+            "  where [RoomID]=?";
+            try{
+                PreparedStatement st= connection.prepareStatement(sql);
+                st.setString(1, rname);
+                st.setString(2,desc);
+                st.setString(3, owner);
+                st.setString(4, status);
+                st.setString(5, area);
+                st.setString(6, bednum);
+                st.setString(7, price);
+                st.setString(8, rating);
+                st.setString(9, placeID);
+                st.setString(10, typeID);                
+                st.setInt(11, id);
+                st.executeUpdate();
+            }catch(SQLException ex){
+                System.out.println(ex);
+            }
+    }
 
     public static void main(String[] args) {
         roomDAO dao = new roomDAO();
@@ -75,7 +106,10 @@ public class roomDAO extends DBContext{
 //        for (Room room : list) {
 //            System.out.println(room);
 //        }
-        Room r = dao.getRoomByID(3);
-        System.out.println(r);
+        dao.updateRoom("The Galaxy Home", "·Vị trí rất đẹp và thuận tiện ở quận Cầu Giấy\n" +
+"\n" +
+"·Gần công viên Cầu Giấy, Lotteria, trung tâm mua sắm với môi trường ngoài trời yên tĩnh\n" +
+"\n" +
+"·Bạn hoàn toàn có thể trải nghiệm những dịch vụ cao cấp tại đây", "1", "Available", "62", "1", "750000", "", "1", "2", 3);
     }
 }

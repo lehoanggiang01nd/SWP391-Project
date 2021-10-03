@@ -89,6 +89,7 @@ public class userProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String submit= request.getParameter("submit");
         if(submit.equalsIgnoreCase("Cancel")){
             String raw_id= request.getParameter("id");
@@ -109,10 +110,10 @@ public class userProfileServlet extends HttpServlet {
             DAO db= new DAO();
             if(db.updateAccount(id,uname, fname, lname, phone, role)!=0){
                 request.setAttribute("error", "Update suscessfully!");
-                response.sendRedirect("profile?id="+id);
+                response.sendRedirect("userprofile?id="+id);
             } else{
                 request.setAttribute("error", "Update false!");
-                response.sendRedirect("profile?id="+id);
+                response.sendRedirect("userprofile?id="+id);
             }
         }
     }

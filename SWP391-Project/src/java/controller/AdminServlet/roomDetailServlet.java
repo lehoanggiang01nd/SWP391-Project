@@ -83,7 +83,33 @@ public class roomDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
+        String submit = request.getParameter("submit");
+        if(submit.equalsIgnoreCase("reset")){
+            String raw_id= request.getParameter("rid");
+            int rid= Integer.parseInt(raw_id);
+            roomDAO db= new roomDAO();
+            Room r= db.getRoomByID(rid);
+            request.setAttribute("room", r);
+            request.getRequestDispatcher("roomDetailAdmin.jsp").forward(request, response);
+        }else{
+            String raw_id= request.getParameter("rid");
+            int rid= Integer.parseInt(raw_id);
+            String rName = request.getParameter("rname");
+            String desc = request.getParameter("desc");
+            String owner = request.getParameter("owner");
+            String status = request.getParameter("status");
+            String area = request.getParameter("area");
+            String bednum = request.getParameter("bednum");
+            String price = request.getParameter("price");
+            String rating = request.getParameter("rating");
+            String placeId = request.getParameter("placeId");
+            String typeId = request.getParameter("typeId");
+            roomDAO dao = new roomDAO();
+            dao.updateRoom(rName, desc, owner, status, area, bednum, price, rating, placeId, typeId, rid);           
+            response.sendRedirect("roomdetail?rid="+rid);
+        }
     }
 
     /**

@@ -22,7 +22,7 @@
 <hr>
 <div class="container bootstrap snippet">
     <div class="row">
-  		<div class="col-sm-10"><h1>User name</h1></div>
+  		<div class="col-sm-10"><h1>Room</h1></div>
     	<div class="col-sm-2"><a href="/users" class="pull-right"><img title="profile image" class="img-circle img-responsive" src="http://www.gravatar.com/avatar/28fd20ccec6865e2d5f0e1f4446eb7bf?s=100"></a></div>
     </div>
     <div class="row">
@@ -30,16 +30,12 @@
               
 
       <div class="text-center">
-        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-        <h6>Upload a different photo...</h6>
-        <input type="file" class="text-center center-block file-upload">
+        <img src="${room.picture}" class="avatar img-circle img-thumbnail" alt="avatar">
+        
       </div></hr><br>
 
                
-          <div class="panel panel-default">
-            <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
-            <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
-          </div>
+          
           
           
           <ul class="list-group">
@@ -74,14 +70,14 @@
                           
                           <div class="col-xs-6">
                               <label for="first_name"><h4>Room Id</h4></label>
-                              <input readonly type="text" class="form-control" name="first_name" id="first_name" value="${room.rid}">
+                              <input readonly type="text" class="form-control" name="room_id" id="first_name" value="${room.rid}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                             <label for="last_name"><h4>Name</h4></label>
-                            <input type="text" class="form-control" name="last_name" id="last_name" value="${room.rName}">
+                            <input type="text" class="form-control" name="rname" id="last_name" value="${room.rName}">
                           </div>
                       </div>
           
@@ -89,70 +85,70 @@
                           
                           <div class="col-xs-6">
                               <label for="phone"><h4>Description</h4></label>
-                              <input type="text" class="form-control" name="phone" id="phone" value="${room.desc}">
+                              <input type="text" class="form-control" name="desc" id="phone" value="${room.desc}">
                           </div>
                       </div>
           
                       <div class="form-group">
                           <div class="col-xs-6">
                              <label for="mobile"><h4>Owner ID</h4></label>
-                             <input type="text" class="form-control" name="mobile" id="mobile" value="${room.ownerId}">
+                             <input readonly type="text" class="form-control" name="owner" id="mobile" value="${room.ownerId}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                               <label for="email"><h4>Status</h4></label>
-                              <input type="email" class="form-control" name="email" id="email" value="${room.status}">
+                              <input class="form-control" name="status" id="email" value="${room.status}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                               <label for="email"><h4>Area</h4></label>
-                              <input type="email" class="form-control" id="location" value="${room.area}">
+                              <input  class="form-control" name="area" id="location" value="${room.area}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                               <label for="password"><h4>Bed Number</h4></label>
-                              <input class="form-control" name="password" id="password" value="${room.bedNum}">
+                              <input class="form-control" name="bednum" id="password" value="${room.bedNum}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                             <label for="password2"><h4>Price</h4></label>
-                            <input  class="form-control" name="password2" id="password2" value="${room.price}">
+                            <input  class="form-control" name="price" id="password2" value="${room.price}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                             <label for="password2"><h4>Rating</h4></label>
-                            <input  class="form-control" name="password2" id="password2" value="${room.rating}">
+                            <input readonly class="form-control" name="rating" id="password2" value="${room.rating}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                             <label for="password2"><h4>Location</h4></label>
-                            <input  class="form-control" name="password2" id="password2" value="${room.placeId}">
+                            <input  class="form-control" name="placeId" id="password2" value="${room.placeId}">
                           </div>
                       </div>
                       <div class="form-group">
                           
                           <div class="col-xs-6">
                             <label for="password2"><h4>Type</h4></label>
-                            <input class="form-control" name="password2" id="password2" value="${room.typeId}">
+                            <input class="form-control" name="typeId" id="password2" value="${room.typeId}">
                           </div>
                       </div>
                       <div class="form-group">
                            <div class="col-xs-12">
                                 <br>
-                              	<button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                               	<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                                <button class="btn btn-lg btn-success" type="submit" name="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                               	<button class="btn btn-lg" type="reset" name="submit"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
                             </div>
                       </div>
               	</form>
