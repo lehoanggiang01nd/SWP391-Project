@@ -3,22 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.AdminServlet;
+package controller;
 
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Account;
 
 /**
  *
- * @author ADMIN
+ * @author MY LAPTOP
  */
-public class editUserServlet extends HttpServlet {
+@WebServlet(name = "userProfileServlet", urlPatterns = {"/profile"})
+public class userProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +40,10 @@ public class editUserServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet EditUserServlet</title>");
+            out.println("<title>Servlet userProfileServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet EditUserServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet userProfileServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,27 +61,25 @@ public class editUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String raw_id = request.getParameter("id");
-        int id = Integer.parseInt(raw_id);
-        DAO db = new DAO();
-        Account a = db.getAccountByID(id);
-        String role;
-        if (a.isIsAdmin()) {
+        
+        HttpSession session = request.getSession();
+        Object o= session.getAttribute("acc");
+        Account a = null;
+        if(o!=null){
+            a= (Account)o;
+            String role;
+        if(a.isIsAdmin()) {
             request.setAttribute("role", "Admin");
         }
-        if (a.isIsBooker()) {
+        if(a.isIsBooker()) {
             request.setAttribute("role", "Booker");
         }
-        if (a.isIsOwner()) {
+        if(a.isIsOwner()) {
             request.setAttribute("role", "Owner");
         }
-        if (a.isBlock()) {
-            request.setAttribute("block", "Block");
-        } else {
-            request.setAttribute("block", "No");
+        session.setAttribute("user", a);
+        request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
         }
-        request.setAttribute("user", a);
-        request.getRequestDispatcher("editUser.jsp").forward(request, response);
     }
 
     /**
@@ -92,49 +93,46 @@ public class editUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String raw_id = request.getParameter("id");
-        int id = Integer.parseInt(raw_id);
-        DAO db = new DAO();
-        String role = request.getParameter("role");
-        String block = request.getParameter("block");
-        if (db.editAdmin(id, role, block) != 0) {
-            Account u = db.getAccountByID(id);
-            if (u.isIsAdmin()) {
-                request.setAttribute("role", "Admin");
+        String submit= request.getParameter("submit");
+         
+        HttpSession session = request.getSession();
+        Object o= session.getAttribute("acc");
+        Account a = null;
+        DAO db= new DAO();
+        if(o!=null){
+            a= (Account)o;
+        }
+            String role;
+        if(a.isIsAdmin()) {
+            request.setAttribute("role", "Admin");
+        }
+        if(a.isIsBooker()) {
+            request.setAttribute("role", "Booker");
+        }
+        if(a.isIsOwner()) {
+            request.setAttribute("role", "Owner");
+        }
+        
+        if(submit.equalsIgnoreCase("Cancel")){
+        response.sendRedirect("profile");
+        } else{
+            String uname= request.getParameter("uname");
+            String fname= request.getParameter("fname");
+            String lname= request.getParameter("lname");
+            String email= request.getParameter("email");
+            String phone= request.getParameter("phone");
+            role= request.getParameter("role");
+            int id= a.getId();
+            if(db.updateAccount(id,uname, fname, lname, phone, role)!=0){
+                session.setAttribute("error", "Update suscessfully!");
+                Account u= db.login(uname, a.getPassWord());
+                session.setAttribute("acc", u);
+                session.setAttribute("user", u);
+                response.sendRedirect("profile");
+            } else{
+                session.setAttribute("error", "Update false!");
+                request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
             }
-            if (u.isIsBooker()) {
-                request.setAttribute("role", "Booker");
-            }
-            if (u.isIsOwner()) {
-                request.setAttribute("role", "Owner");
-            }
-            if (u.isBlock()) {
-                request.setAttribute("block", "Block");
-            } else {
-                request.setAttribute("block", "No");
-            }
-            request.setAttribute("user", u);
-            request.setAttribute("error", "Update suscessfully!");
-            request.getRequestDispatcher("editUser.jsp").forward(request, response);
-        } else {
-            Account u = db.getAccountByID(id);
-            if (u.isIsAdmin()) {
-                request.setAttribute("role", "Admin");
-            }
-            if (u.isIsBooker()) {
-                request.setAttribute("role", "Booker");
-            }
-            if (u.isIsOwner()) {
-                request.setAttribute("role", "Owner");
-            }
-            if (u.isBlock()) {
-                request.setAttribute("block", "Block");
-            } else {
-                request.setAttribute("block", "No");
-            }
-            request.setAttribute("user", u);
-            request.setAttribute("error", "Update false!");
-            request.getRequestDispatcher("editUser.jsp").forward(request, response);
         }
     }
 

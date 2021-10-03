@@ -21,7 +21,7 @@ import model.Account;
  *
  * @author MY LAPTOP
  */
-@WebServlet(name = "userServlet", urlPatterns = {"/profile"})
+@WebServlet(name = "userServlet", urlPatterns = {"/user"})
 public class userServlet extends HttpServlet {
 
     /**
@@ -60,24 +60,7 @@ public class userServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Object o= session.getAttribute("acc");
-        Account a = null;
-        if(o!=null){
-            a= (Account)o;
-            String role;
-        if(a.isIsAdmin()) {
-            request.setAttribute("role", "Admin");
-        }
-        if(a.isIsBooker()) {
-            request.setAttribute("role", "Booker");
-        }
-        if(a.isIsOwner()) {
-            request.setAttribute("role", "Owner");
-        }
-        session.setAttribute("user", a);
-        request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -91,47 +74,7 @@ public class userServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String submit= request.getParameter("submit");
-         
-        HttpSession session = request.getSession();
-        Object o= session.getAttribute("acc");
-        Account a = null;
-        DAO db= new DAO();
-        if(o!=null){
-            a= (Account)o;
-        }
-            String role;
-        if(a.isIsAdmin()) {
-            request.setAttribute("role", "Admin");
-        }
-        if(a.isIsBooker()) {
-            request.setAttribute("role", "Booker");
-        }
-        if(a.isIsOwner()) {
-            request.setAttribute("role", "Owner");
-        }
-        
-        if(submit.equalsIgnoreCase("Cancel")){
-        response.sendRedirect("profile");
-        } else{
-            String uname= request.getParameter("uname");
-            String fname= request.getParameter("fname");
-            String lname= request.getParameter("lname");
-            String email= request.getParameter("email");
-            String phone= request.getParameter("phone");
-            role= request.getParameter("role");
-            int id= a.getId();
-            if(db.updateAccount(id,uname, fname, lname, phone, role)!=0){
-                session.setAttribute("error", "Update suscessfully!");
-                Account u= db.login(uname, a.getPassWord());
-                session.setAttribute("acc", u);
-                session.setAttribute("user", u);
-                response.sendRedirect("profile");
-            } else{
-                session.setAttribute("error", "Update false!");
-                request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
-            }
-        }
+        processRequest(request, response);
     }
 
     /**
