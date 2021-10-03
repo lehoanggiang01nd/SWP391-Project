@@ -30,7 +30,7 @@ public class roomDAO extends DBContext{
                             rs.getString(3),
                             rs.getString(4),
                             rs.getInt(5),
-                            rs.getString(6),
+                            rs.getBoolean(6),
                             rs.getInt(7),
                             rs.getInt(8),
                             rs.getDouble(9),
@@ -55,7 +55,7 @@ public class roomDAO extends DBContext{
                             rs.getString(3),
                             rs.getString(4),
                             rs.getInt(5),
-                            rs.getString(6),
+                            rs.getBoolean(6),
                             rs.getInt(7),
                             rs.getInt(8),
                             rs.getDouble(9),
@@ -68,7 +68,7 @@ public class roomDAO extends DBContext{
         }
         return null;
     }
-    public void updateRoom(String rname, String desc, String owner, String status, String area,String bednum,String price,String rating,String placeID,String typeID,int id){
+    public void updateRoom(String rname, String desc, String owner,Boolean status, String area,String bednum,String price,String rating,String placeID,String typeID,int id){
         
             String sql="Update Room set [Name]=?,\n" +
             "  [Description]=?,\n" +
@@ -86,7 +86,7 @@ public class roomDAO extends DBContext{
                 st.setString(1, rname);
                 st.setString(2,desc);
                 st.setString(3, owner);
-                st.setString(4, status);
+                st.setBoolean(4, status);
                 st.setString(5, area);
                 st.setString(6, bednum);
                 st.setString(7, price);
@@ -106,10 +106,10 @@ public class roomDAO extends DBContext{
 //        for (Room room : list) {
 //            System.out.println(room);
 //        }
-        dao.updateRoom("The Galaxy Home", "·Vị trí rất đẹp và thuận tiện ở quận Cầu Giấy\n" +
-"\n" +
-"·Gần công viên Cầu Giấy, Lotteria, trung tâm mua sắm với môi trường ngoài trời yên tĩnh\n" +
-"\n" +
-"·Bạn hoàn toàn có thể trải nghiệm những dịch vụ cao cấp tại đây", "1", "Available", "62", "1", "750000", "", "1", "2", 3);
+//        dao.updateRoom("The Galaxy Home", "·Vị trí rất đẹp và thuận tiện ở quận Cầu Giấy\n" +
+//"\n" +
+//"·Gần công viên Cầu Giấy, Lotteria, trung tâm mua sắm với môi trường ngoài trời yên tĩnh\n" +
+//"\n" +
+//"·Bạn hoàn toàn có thể trải nghiệm những dịch vụ cao cấp tại đây", "1", "Available", "62", "1", "750000", "", "1", "2", 3);
     }
 }

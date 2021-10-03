@@ -21,7 +21,7 @@ import model.Type;
  *
  * @author ADMIN
  */
-public class HomeServlet extends HttpServlet {
+public class homeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

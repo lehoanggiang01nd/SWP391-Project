@@ -34,7 +34,8 @@ public class DAO extends DBContext{
                             rs.getBoolean(8),
                             rs.getBoolean(9),
                             rs.getBoolean(10),
-                            rs.getString(11)));
+                            rs.getString(11),
+                            rs.getBoolean(12)));
                 }
             } catch (SQLException e) {
                 System.out.println(e);
@@ -60,7 +61,8 @@ public class DAO extends DBContext{
                             rs.getBoolean(8),
                             rs.getBoolean(9),
                             rs.getBoolean(10),
-                            rs.getString(11)));
+                            rs.getString(11),
+                            rs.getBoolean(12)));
                 }
             } catch (SQLException e) {
                 System.out.println(e);
@@ -87,7 +89,8 @@ public class DAO extends DBContext{
                             rs.getBoolean(8),
                             rs.getBoolean(9),
                             rs.getBoolean(10),
-                            rs.getString(11));
+                            rs.getString(11),
+                            rs.getBoolean(12));
             }    
         } catch (SQLException e) {
             System.out.println(e);
@@ -114,7 +117,8 @@ public class DAO extends DBContext{
                             rs.getBoolean(8),
                             rs.getBoolean(9),
                             rs.getBoolean(10),
-                            rs.getString(11));
+                            rs.getString(11),
+                            rs.getBoolean(12));
             }    
         } catch (SQLException e) {
             System.out.println(e);
@@ -139,7 +143,7 @@ public class DAO extends DBContext{
         }
     }
     
-    public Account getByID(int id){
+    public Account getAccountByID(int id){
         String sql="select * from Account where userId=?";
         try{
             PreparedStatement st= connection.prepareStatement(sql);
@@ -147,16 +151,17 @@ public class DAO extends DBContext{
             ResultSet rs= st.executeQuery();
             while(rs.next()){
                 return new Account(rs.getInt(1),
-                        rs.getString(2), 
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5), 
-                        rs.getString(6),
-                        rs.getString(7),
-                        rs.getBoolean(8), 
-                        rs.getBoolean(9),
-                        rs.getBoolean(10),
-                        rs.getString(11));
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7),
+                            rs.getBoolean(8),
+                            rs.getBoolean(9),
+                            rs.getBoolean(10),
+                            rs.getString(11),
+                            rs.getBoolean(12));
             }
         }catch(SQLException e){
             System.out.println(e);

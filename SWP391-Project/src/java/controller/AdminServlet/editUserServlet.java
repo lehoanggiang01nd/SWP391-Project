@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.AdminServlet;
 
 import dal.DAO;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import model.Account;
  *
  * @author ADMIN
  */
-public class EditUserServlet extends HttpServlet {
+public class editUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -61,7 +61,7 @@ public class EditUserServlet extends HttpServlet {
         String raw_id = request.getParameter("id");
         int id = Integer.parseInt(raw_id);
         DAO db = new DAO();
-        Account a = db.getByID(id);
+        Account a = db.getAccountByID(id);
         String role;
         if (a.isIsAdmin()) {
             request.setAttribute("role", "Admin");
@@ -98,7 +98,7 @@ public class EditUserServlet extends HttpServlet {
         String role = request.getParameter("role");
         String block = request.getParameter("block");
         if (db.editAdmin(id, role, block) != 0) {
-            Account u = db.getByID(id);
+            Account u = db.getAccountByID(id);
             if (u.isIsAdmin()) {
                 request.setAttribute("role", "Admin");
             }
@@ -117,7 +117,7 @@ public class EditUserServlet extends HttpServlet {
             request.setAttribute("error", "Update suscessfully!");
             request.getRequestDispatcher("editUser.jsp").forward(request, response);
         } else {
-            Account u = db.getByID(id);
+            Account u = db.getAccountByID(id);
             if (u.isIsAdmin()) {
                 request.setAttribute("role", "Admin");
             }

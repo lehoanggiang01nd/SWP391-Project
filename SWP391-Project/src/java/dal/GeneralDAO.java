@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.Feedback;
 import model.Place;
 import model.Room;
 import model.Type;
@@ -61,7 +60,7 @@ public class GeneralDAO extends DBContext {
             ResultSet rs= st.executeQuery();
             while(rs.next()){
                 list.add(new Room(rs.getInt("RoomID"), rs.getString("Name"), rs.getString("Description"),
-                rs.getString("Picture"), rs.getInt("OwnerID"), rs.getInt("Status"), rs.getInt("Area"), 
+                rs.getString("Picture"), rs.getInt("OwnerID"), rs.getBoolean("Status"), rs.getInt("Area"), 
                         rs.getInt("BedNumber"), rs.getDouble("Price"), rs.getFloat("Rating"), rs.getInt("PlaceID"),
                 rs.getInt("TypeID")));
             }
@@ -84,10 +83,10 @@ public class GeneralDAO extends DBContext {
         }
         return a;
     }
-    public ArrayList<Feedback> get3Feedback(){
-        ArrayList<Feedback> list= new ArrayList<>();
-        return list;
-    }
+//    public ArrayList<Feedback> get3Feedback(){
+//        ArrayList<Feedback> list= new ArrayList<>();
+//        return list;
+//    }
     public static void main(String[] args){
         GeneralDAO db= new GeneralDAO();
         int[] arr=db.numberOfBed();

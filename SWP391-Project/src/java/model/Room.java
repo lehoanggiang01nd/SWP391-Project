@@ -15,7 +15,7 @@ public class Room {
     private String desc;
     private String picture;
     private int ownerId;
-    private String status;
+    private boolean status;
     private int area;
     private int bedNum;
     private double price;
@@ -26,7 +26,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(int rid, String rName, String desc, String picture, int ownerId, String status, int area, int bedNum, double price, float rating, int placeId, int typeId) {
+    public Room(int rid, String rName, String desc, String picture, int ownerId, boolean status, int area, int bedNum, double price, float rating, int placeId, int typeId) {
         this.rid = rid;
         this.rName = rName;
         this.desc = desc;
@@ -77,15 +77,15 @@ public class Room {
         return ownerId;
     }
 
-    public void setOwnerId(int OwnerId) {
-        this.ownerId = OwnerId;
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
     }
 
-    public String getStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -93,8 +93,8 @@ public class Room {
         return area;
     }
 
-    public void setArea(int Area) {
-        this.area = Area;
+    public void setArea(int area) {
+        this.area = area;
     }
 
     public int getBedNum() {
@@ -109,8 +109,8 @@ public class Room {
         return price;
     }
 
-    public void setPrice(double Price) {
-        this.price = Price;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public float getRating() {
@@ -139,8 +139,10 @@ public class Room {
 
     @Override
     public String toString() {
-        return "Room{" + "rid=" + rid + ", rName=" + rName + ", desc=" + desc + ", picture=" + picture + ", OwnerId=" + ownerId + ", status=" + status + ", Area=" + area + ", bedNum=" + bedNum + ", Price=" + price + ", rating=" + rating + ", placeId=" + placeId + ", typeId=" + typeId + '}';
+        return "Room{" + "rid=" + rid + ", rName=" + rName + ", desc=" + desc + ", picture=" + picture + ", ownerId=" + ownerId + ", status=" + status + ", area=" + area + ", bedNum=" + bedNum + ", price=" + price + ", rating=" + rating + ", placeId=" + placeId + ", typeId=" + typeId + '}';
     }
+
+    
     
     
 }
