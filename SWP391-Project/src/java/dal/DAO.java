@@ -187,24 +187,21 @@ public class DAO extends DBContext{
             }
         return 0;
     }
-    public int editAdmin(int id,String uname, String pass, String fname, String lname, String phone, String role){
-        boolean isAdmin= false, isBooker= false, isOwner=false;
+    public int editAdmin(int id, String role, String block){
+        boolean isAdmin= false, isBooker= false, isOwner=false, isBlock=false;
             if(role.equalsIgnoreCase("Admin")) isAdmin = true;
             if(role.equalsIgnoreCase("Booker")) isBooker = true;
             if(role.equalsIgnoreCase("Owner")) isOwner = true;
-            String sql="Update Account set UserName=?, PassWord=?, FName=?, LName=?, Phone=?, isAdmin=?, "
-                    + "isBooker=?, isOwner=? where userId=?";
+            if(block.equalsIgnoreCase("Block")) isBlock=true;
+            String sql="Update Account set isAdmin=?, "
+                    + "isBooker=?, isOwner=?, Block=? where userId=?";
             try{
                 PreparedStatement st= connection.prepareStatement(sql);
-                st.setString(1, uname);
-                st.setString(2, pass);
-                st.setString(3,fname);
-                st.setString(4,lname);
-                st.setString(5,phone);
-                st.setBoolean(6, isAdmin);
-                st.setBoolean(7, isBooker);
-                st.setBoolean(8, isOwner);
-                st.setInt(9, id);
+                st.setBoolean(1, isAdmin);
+                st.setBoolean(2, isBooker);
+                st.setBoolean(3, isOwner);
+                st.setBoolean(4, isBlock);
+                st.setInt(5, id);
                 return st.executeUpdate();
             }catch(SQLException ex){
                 System.out.println(ex);
