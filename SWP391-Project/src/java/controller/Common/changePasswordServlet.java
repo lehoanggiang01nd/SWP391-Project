@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.Common;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,13 +13,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.Account;
+import dal.DAO;
 
 /**
  *
- * @author MY LAPTOP
+ * @author Cackac
  */
-@WebServlet(name = "logoutServlet", urlPatterns = {"/logout"})
-public class logoutServlet extends HttpServlet {
+@WebServlet(name = "ChangePasswordServlet", urlPatterns = {"/changepassword"})
+public class changePasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,16 +32,6 @@ public class logoutServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        HttpSession session = request.getSession();
-        
-        session.removeAttribute("acc");
-        response.sendRedirect("homepage");
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -52,7 +44,7 @@ public class logoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("changepassword.jsp").forward(request, response);
     }
 
     /**
@@ -66,7 +58,26 @@ public class logoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        PrintWriter out = response.getWriter();
+        String pass = request.getParameter("password");
+        
+            HttpSession session = request.getSession();
+            DAO dao = new DAO();
+//        String username = session.getAttribute(pass)
+        
+            
+            Account user = (Account) session.getAttribute("acc");
+            String a = user.getUserName();
+            String b = user.getUserName();
+            dao.changePass(user.getUserName(), pass);
+//        
+
+            session.setAttribute("account", user);
+            out.println("Change Successful");
+            
+//            request.getRequestDispatcher("changepassword.jsp").forward(request, response);
+//              response.sendRedirect("changepassword.jsp");
+        
     }
 
     /**

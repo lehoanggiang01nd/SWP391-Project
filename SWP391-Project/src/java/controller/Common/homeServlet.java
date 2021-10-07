@@ -3,24 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.Common;
 
-import dal.DAO;
+import dal.GeneralDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
+import model.Place;
+import model.Room;
+import model.Type;
 
 /**
  *
- * @author MY LAPTOP
+ * @author ADMIN
  */
-@WebServlet(name = "signupServlet", urlPatterns = {"/signup"})
-public class signupServlet extends HttpServlet {
+@WebServlet (name="homepage",urlPatterns={"/homepage"})
+public class homeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,27 +37,17 @@ public class signupServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String email = request.getParameter("Email");
-        String Fname = request.getParameter("FName");
-        String Lname = request.getParameter("LName");
-        String phone = request.getParameter("phone");
-        String repass = request.getParameter("password");
-        
-        if(!password.equals(repass)){
-            request.setAttribute("mess","The re-entered password must match the entered password");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-        }else{
-            DAO dao = new DAO();
-            Account a = dao.checkAccount(username, phone);
-            if(a == null){
-                dao.signup(username, password, email, Fname, Lname, phone);
-                response.sendRedirect("login");
-            }else{
-                request.setAttribute("mess","Username or Phone Number is currently in use");
-                request.getRequestDispatcher("register.jsp").forward(request, response);
-            }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet HomeServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -70,7 +63,32 @@ public class signupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        GeneralDAO db= new GeneralDAO();
+        ArrayList<Place> plas= db.getAllPlace();
+        ArrayList<Place> plas1= new ArrayList<>();
+        ArrayList<Type> tys= db.getAllType();
+        ArrayList<Type> tys1= new ArrayList<>();
+        ArrayList<Room> rms= db.get6Room();
+        ArrayList<Room> rms1= new ArrayList<>();
+        ArrayList<Room> rms2 = new ArrayList<>();
+        for(int i=0; i<6; i++){
+            plas1.add(plas.get(i));
+            tys1.add(tys.get(i));
+        }
+        for(int i=0;i<rms.size(); i++ ){
+            if(i<3){
+                rms1.add(rms.get(i));
+            }else{
+                rms2.add(rms.get(i));
+            }
+        }
+        request.setAttribute("types1", tys1);
+        request.setAttribute("places1", plas1);
+        request.setAttribute("types", tys);
+        request.setAttribute("places", plas);
+        request.setAttribute("rooms1", rms1);
+        request.setAttribute("rooms2", rms2);
+        request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 
     /**

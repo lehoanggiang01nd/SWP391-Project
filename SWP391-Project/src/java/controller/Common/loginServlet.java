@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.Common;
 
 import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,8 +21,8 @@ import model.Account;
  *
  * @author MY LAPTOP
  */
-@WebServlet(name = "userProfileServlet", urlPatterns = {"/profile"})
-public class userProfileServlet extends HttpServlet {
+@WebServlet(name = "loginServlet", urlPatterns = {"/login"})
+public class loginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +41,10 @@ public class userProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet userProfileServlet</title>");            
+            out.println("<title>Servlet loginServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet userProfileServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet loginServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,25 +62,18 @@ public class userProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-        Object o= session.getAttribute("acc");
-        Account a = null;
-        if(o!=null){
-            a= (Account)o;
-            String role;
-        if(a.isIsAdmin()) {
-            request.setAttribute("role", "Admin");
-        }
-        if(a.isIsBooker()) {
-            request.setAttribute("role", "Booker");
-        }
-        if(a.isIsOwner()) {
-            request.setAttribute("role", "Owner");
-        }
-        session.setAttribute("user", a);
-        request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
-        }
+        Cookie arr[] = request.getCookies();
+            if(arr != null){
+                for (Cookie o : arr) {
+                if(o.getName().equals("userC")){
+                 request.setAttribute("emailC",o.getValue());            
+                  }
+                if(o.getName().equals("passC")){
+                 request.setAttribute("passwordC",o.getValue());               
+                    }
+                }           
+            }
+            request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
@@ -93,47 +87,32 @@ public class userProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String submit= request.getParameter("submit");
-         
-        HttpSession session = request.getSession();
-        Object o= session.getAttribute("acc");
-        Account a = null;
-        DAO db= new DAO();
-        if(o!=null){
-            a= (Account)o;
-        }
-            String role;
-        if(a.isIsAdmin()) {
-            request.setAttribute("role", "Admin");
-        }
-        if(a.isIsBooker()) {
-            request.setAttribute("role", "Booker");
-        }
-        if(a.isIsOwner()) {
-            request.setAttribute("role", "Owner");
-        }
-        
-        if(submit.equalsIgnoreCase("Cancel")){
-        response.sendRedirect("profile");
-        } else{
-            String uname= request.getParameter("uname");
-            String fname= request.getParameter("fname");
-            String lname= request.getParameter("lname");
-            String email= request.getParameter("email");
-            String phone= request.getParameter("phone");
-            role= request.getParameter("role");
-            int id= a.getId();
-            if(db.updateAccount(id,uname, fname, lname, phone, role)!=0){
-                session.setAttribute("error", "Update suscessfully!");
-                Account u= db.login(uname, a.getPassWord());
-                session.setAttribute("acc", u);
-                session.setAttribute("user", u);
-                response.sendRedirect("profile");
-            } else{
-                session.setAttribute("error", "Update false!");
-                request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+        String username = request.getParameter("user");
+        String password = request.getParameter("pass");
+        String remember = request.getParameter("remember");
+            DAO dao = new DAO();
+            Account a= dao.login(username, password);
+            if(a == null){
+                request.setAttribute("mess","Wrong username or password");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }else{
+                HttpSession session = request.getSession();
+                session.setAttribute("acc", a);
+                session.setMaxInactiveInterval(6969);
+                
+                Cookie u =new Cookie("userC", username);
+                Cookie p =new Cookie("passC", password);
+                u.setMaxAge(60*60*24*365);
+                if(remember != null){
+                  p.setMaxAge(60*60*24*365); 
+                }else{
+                  p.setMaxAge(0);
+                }
+                
+                response.addCookie(u);
+                response.addCookie(p);
+                response.sendRedirect("homepage");
             }
-        }
     }
 
     /**
