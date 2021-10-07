@@ -169,11 +169,38 @@ public class DAO extends DBContext{
         return null;
     }
     
-    public int updateAccount(int id,String uname, String fname, String lname, String phone, String role){
+    public Account checkUserName(String userName){
+         String sql="select * from Account where UserName=?";
+        try{
+            PreparedStatement st= connection.prepareStatement(sql);
+            st.setString(1, userName);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()){
+                return new Account(rs.getInt(1),
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7),
+                            rs.getBoolean(8),
+                            rs.getBoolean(9),
+                            rs.getBoolean(10),
+                            rs.getString(11),
+                            rs.getBoolean(12));
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
+public int updateAccount(int id,String uname, String fname, String lname, String phone, String role){
         boolean isAdmin= false, isBooker= false, isOwner=false;
             if(role.equalsIgnoreCase("Admin")) isAdmin = true;
             if(role.equalsIgnoreCase("Booker")) isBooker = true;
             if(role.equalsIgnoreCase("Owner")) isOwner = true;
+            if(checkUserName(uname) ==null){
             String sql="Update Account set UserName=?, FName=?, LName=?, Phone=?, isAdmin=?, "
                     + "isBooker=?, isOwner=? where userId=?";
             try{
@@ -189,6 +216,7 @@ public class DAO extends DBContext{
                 return st.executeUpdate();
             }catch(SQLException ex){
                 System.out.println(ex);
+            }
             }
         return 0;
     }

@@ -93,13 +93,17 @@ public class roomDetailServlet extends HttpServlet {
             Room r= db.getRoomByID(rid);
             request.setAttribute("room", r);
             request.getRequestDispatcher("roomDetailAdmin.jsp").forward(request, response);
-        }else{
+        }else{           
             String raw_id= request.getParameter("rid");
             int rid= Integer.parseInt(raw_id);
             String rName = request.getParameter("rname");
             String desc = request.getParameter("desc");
             String owner = request.getParameter("owner");
-            String status = request.getParameter("status");
+            String status_raw = request.getParameter("status");
+            Boolean status= true;
+            if(status_raw.equalsIgnoreCase("0")){
+                status=false;
+            }
             String area = request.getParameter("area");
             String bednum = request.getParameter("bednum");
             String price = request.getParameter("price");

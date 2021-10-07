@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -98,8 +99,17 @@
                       <div class="form-group">
                           
                           <div class="col-xs-6">
-                              <label for="email"><h4>Status</h4></label>
-                              <input class="form-control" name="status" id="email" value="${room.status}">
+                              <label><h4>Status</h4></label>
+                              <select name="status" class="form-select" id="autoSizingSelect">
+                                    <c:if test="${room.status==false}">
+                                        <option selected value="0">Empty</option>
+                                        <option value="1">Not Empty</option>
+                                    </c:if>
+                                    <c:if test="${room.status==true}">
+                                        <option value="0">Empty</option>
+                                        <option selected value="1">Not Empty</option>
+                                    </c:if> 
+                                    </select>
                           </div>
                       </div>
                       <div class="form-group">
