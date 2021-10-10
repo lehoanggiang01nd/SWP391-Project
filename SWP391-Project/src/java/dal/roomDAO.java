@@ -68,6 +68,33 @@ public class roomDAO extends DBContext{
         }
         return null;
     }
+    public List<Room> getRoomByOwnerId(int oid) {
+        List<Room> list = new ArrayList<>();
+        String sql ="select * from Room \n" +
+                    "  where [OwnerID] = ? ";
+            try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setInt(1, oid);
+                ResultSet rs= st.executeQuery();
+                while(rs.next()){
+                    list.add(new Room(rs.getInt(1),
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getInt(5),
+                            rs.getBoolean(6),
+                            rs.getInt(7),
+                            rs.getInt(8),
+                            rs.getDouble(9),
+                            rs.getFloat(10),
+                            rs.getInt(11),
+                            rs.getInt(12)));
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        return list;
+        }
     public void updateRoom(String rname, String desc, String owner,Boolean status, String area,String bednum,String price,String rating,String placeID,String typeID,int id){
         
             String sql="Update Room set [Name]=?,\n" +
@@ -102,14 +129,16 @@ public class roomDAO extends DBContext{
 
     public static void main(String[] args) {
         roomDAO dao = new roomDAO();
-//        List<Room> list = dao.getAllAccount();
-//        for (Room room : list) {
-//            System.out.println(room);
-//        }
+        List<Room> list = dao.getRoomByOwnerId(1);
+        for (Room room : list) {
+            System.out.println(room);
+        }
 //        dao.updateRoom("The Galaxy Home", "·Vị trí rất đẹp và thuận tiện ở quận Cầu Giấy\n" +
 //"\n" +
 //"·Gần công viên Cầu Giấy, Lotteria, trung tâm mua sắm với môi trường ngoài trời yên tĩnh\n" +
 //"\n" +
 //"·Bạn hoàn toàn có thể trải nghiệm những dịch vụ cao cấp tại đây", "1", "Available", "62", "1", "750000", "", "1", "2", 3);
+//         Room r = dao.getRoomByOwnerId("1");
+//         System.out.println();
     }
 }

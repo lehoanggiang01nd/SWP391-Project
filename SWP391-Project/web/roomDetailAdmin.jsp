@@ -31,7 +31,7 @@
               
 
       <div class="text-center">
-        <img src="${room.picture}" class="avatar img-circle img-thumbnail" alt="avatar">
+        <img src="rhea/public/assets/img/gallery/${room.picture}" class="avatar img-circle img-thumbnail" alt="avatar">
         
       </div></hr><br>
 

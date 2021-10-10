@@ -94,10 +94,18 @@
                                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Change Password
                                         </a>
+                                        <c:if test="${sessionScope.acc.isOwner == true}">
+                                        <a class="dropdown-item" href="ownerroom">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            My Room
+                                        </a>
+                                        </c:if>
+                                        <c:if test="${sessionScope.acc.isAdmin == true}">
                                         <a class="dropdown-item" href="user">
                                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Admin
                                         </a>
+                                        </c:if>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="logout">
                                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
