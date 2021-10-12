@@ -282,7 +282,10 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">User List</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">My room</h6>
+                        </div>
+                        <div class="card-header py-3">
+                            <td><a class="btn btn-primary" href="" role="button">Add Room</a></td>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -291,7 +294,7 @@
                                         <tr>
                                             <th>Room Id</th>
                                             <th>Room Name</th>
-                                            <th>Picture</th>
+                                            <th>Thumbnail</th>
                                             <th>Price</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
@@ -301,7 +304,7 @@
                                         <tr>
                                             <th>Room Id</th>
                                             <th>Room Name</th>
-                                            <th>Picture</th>
+                                            <th>Thumbnail</th>
                                             <th>Price</th>
                                             <th>Edit</th>
                                             <th>Delete</th>
@@ -312,10 +315,10 @@
                                             <tr>                                           
                                             <td>${r.rid}</td> 
                                             <td>${r.rName}</td>
-                                            <td>${r.picture}</td>
+                                            <td><img src="img/${r.picture}" width="200" height="200"></td>
                                             <td>${r.price}</td>
-                                            <td><a class="btn btn-primary" href="" role="button">Edit</a></td>                                           
-                                            <td><a class="btn btn-danger"  href="" role="button">Delete</a></td>
+                                            <td><a class="btn btn-primary" href="roomdetail?rid=${r.rid}" role="button">Edit</a></td>                                           
+                                            <td><a class="btn btn-danger"  href="deleteroom?rid=${r.rid}" role="button">Delete</a></td>
                                             </tr>
                                         </c:forEach>                                      
                                     </tbody>

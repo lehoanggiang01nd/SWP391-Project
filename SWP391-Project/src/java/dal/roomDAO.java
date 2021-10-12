@@ -126,6 +126,19 @@ public class roomDAO extends DBContext{
                 System.out.println(ex);
             }
     }
+    public void deleteRoom(String rid)
+    {
+        String sql ="delete from Room\n" +
+                    "  where RoomID = ?";
+        try {
+                PreparedStatement st = connection.prepareStatement(sql);
+                st.setString(1, rid);
+                st.executeUpdate();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+    }
+   
 
     public static void main(String[] args) {
         roomDAO dao = new roomDAO();
