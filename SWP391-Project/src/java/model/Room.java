@@ -25,7 +25,7 @@ public class Room {
 
     public Room() {
     }
-
+    
     public Room(int rid, String rName, String desc, String picture, int ownerId, boolean status, int area, int bedNum, double price, float rating, int placeId, int typeId) {
         this.rid = rid;
         this.rName = rName;
@@ -142,7 +142,5 @@ public class Room {
         return "Room{" + "rid=" + rid + ", rName=" + rName + ", desc=" + desc + ", picture=" + picture + ", ownerId=" + ownerId + ", status=" + status + ", area=" + area + ", bedNum=" + bedNum + ", price=" + price + ", rating=" + rating + ", placeId=" + placeId + ", typeId=" + typeId + '}';
     }
 
-    
-    
-    
+        
 }

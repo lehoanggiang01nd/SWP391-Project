@@ -91,7 +91,7 @@ public class loginServlet extends HttpServlet {
         String password = request.getParameter("pass");
         String remember = request.getParameter("remember");
             DAO dao = new DAO();
-            Account a= dao.login(username, password);
+            Account a = dao.login(username, password);
             if(a == null){
                 request.setAttribute("mess","Wrong username or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);

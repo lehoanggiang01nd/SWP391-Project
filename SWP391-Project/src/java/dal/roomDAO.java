@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Room;
-
+import model.Booking;
 
 /**
  *
@@ -43,6 +43,43 @@ public class roomDAO extends DBContext{
             }
         return list;
         }
+    public Room checking(String rid, String checkin, String checkout) throws SQLException {
+        String sql = "SELECT * FROM Booking WHERE Roomid = ? AND "
+                + "(? >= CheckIn && ? <= CheckOut) OR "
+                + "(? >= CheckIn && ? <= CheckOut) OR ("
+                + "? <= CheckIn && EndDate >= CheckOut) OR (? > ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, rid);
+            st.setString(2, checkin);
+            st.setString(3, checkin);
+            st.setString(4, checkout);
+            st.setString(5, checkout);
+            st.setString(6, checkin);
+            st.setString(7, checkout);
+            st.setString(8, checkin);
+            st.setString(9, checkout);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                return new Room(rs.getInt(1),
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getInt(5),
+                            rs.getBoolean(6),
+                            rs.getInt(7),
+                            rs.getInt(8),
+                            rs.getDouble(9),
+                            rs.getFloat(10),
+                            rs.getInt(11),
+                            rs.getInt(12));
+            }
+            }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+    
     public Room getRoomByID(int id){
         String sql="select * from Room where RoomID = ?";
         try{

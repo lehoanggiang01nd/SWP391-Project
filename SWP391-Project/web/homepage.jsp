@@ -152,13 +152,14 @@
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <div class="row h-100">
-                                            <c:forEach items="${requestScope.rooms1}" var="r">
-                                                <div class="col-md-4 mb-3 mb-md-0">
+                                            <c:forEach items="${requestScope.rooms1}" var="r" >
+                                                <div class="col-md-4 mb-3 mb-md-0">                                                    
                                                     <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/${r.picture}" alt="" />
                                                         <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
                                                             <div class="pt-3"><span class="badge bg-primary">${r.price}đ</span></div>
                                                             <div class="ps-3 d-flex justify-content-between align-items-center">
                                                                 <h5 class="text-white">${r.rName}</h5>
+                                                                <a class="read" href="detail?id=${r.rid}">BOOK NOW</a>
 
                                                             </div>
                                                         </div>
