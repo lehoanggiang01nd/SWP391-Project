@@ -83,6 +83,30 @@ public class GeneralDAO extends DBContext {
         }
         return a;
     }
+    public void AddPlace(String pName,String pimg){
+        String sql="insert into Place\n" +
+                   "  values(?,?)";
+            try{
+                PreparedStatement st= connection.prepareStatement(sql);
+                st.setString(1, pName);
+                st.setString(2, pimg);
+                st.executeUpdate();
+            }catch(SQLException ex){
+                System.out.println(ex);
+            }
+    }
+    public void AddType(String tName,String timg){
+        String sql="insert into Type\n" +
+                   "  values(?,?)";
+            try{
+                PreparedStatement st= connection.prepareStatement(sql);
+                st.setString(1, tName);
+                st.setString(2, timg);
+                st.executeUpdate();
+            }catch(SQLException ex){
+                System.out.println(ex);
+            }
+    }
 //    public ArrayList<Feedback> get3Feedback(){
 //        ArrayList<Feedback> list= new ArrayList<>();
 //        return list;

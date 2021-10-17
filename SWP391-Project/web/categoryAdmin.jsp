@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +24,7 @@
 
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
@@ -56,11 +58,16 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            
+            <!-- Nav Item - Utilities Collapse Menu -->
             
 
-            <!-- Divider -->
-           
-
+            <!-- Nav Item - Pages Collapse Menu -->
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
@@ -80,7 +87,7 @@
                     <span>Room Table</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="category">
+                <a class="nav-link" href="">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Add Category</span></a>
             </li>           
@@ -226,7 +233,7 @@
                                     <div class="font-weight-bold">
                                         <div class="text-truncate">Hi there! I am wondering if you can help me with a
                                             problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                        <div class="small text-gray-500">Emily Fowler Â· 58m</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -238,7 +245,7 @@
                                     <div>
                                         <div class="text-truncate">I have the photos that you ordered last month, how
                                             would you like them sent to you?</div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
+                                        <div class="small text-gray-500">Jae Chun Â· 1d</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -250,7 +257,7 @@
                                     <div>
                                         <div class="text-truncate">Last month's report looks great, I am very happy with
                                             the progress so far, keep up the good work!</div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                                        <div class="small text-gray-500">Morgan Alvarez Â· 2d</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -262,7 +269,7 @@
                                     <div>
                                         <div class="text-truncate">Am I a good boy? The reason I ask is because someone
                                             told me that people say this to all dogs, even if they aren't good...</div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                                        <div class="small text-gray-500">Chicken the Dog Â· 2w</div>
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
@@ -270,32 +277,32 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
-
+                        
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${sessionScope.acc.lName}</span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="profile">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                <a class="dropdown-item" href="changepassword">
+                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Change Password
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                <a class="dropdown-item" href="user">
+                                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Admin
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -311,54 +318,20 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Room List</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Category Modify</h1>
                     
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Room List</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Category</h6>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Room ID</th>
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                            <th>Bed Number</th>
-                                            <th>Rating</th>
-                                            <th>Price</th>
-                                            <th>Details</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Room ID</th>
-                                            <th>Name</th>
-                                            <th>Status</th>
-                                            <th>Bed Number</th>
-                                            <th>Rating</th>
-                                            <th>Price</th>
-                                            <th>Details</th>
-                                    </tfoot>
-                                    <tbody>
-                                        <c:forEach var="r" items="${listR}">
-                                            <tr>                                           
-                                            <td>${r.rid}</td> 
-                                            <td>${r.rName}</td>
-                                            <td>${r.status}</td>
-                                            <td>${r.bedNum}</td>
-                                            <td>${r.rating}</td>
-                                            <td>${r.price} $</td>
-                                            <td><a class="btn btn-primary" href="roomdetail?rid=${r.rid}" role="button">Details</a></td>
-                                            </tr>
-                                        </c:forEach>                                      
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div class="card-header py-3">
+                                <td><a href="#addPlaceModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">beach_access</i> <span>Add Place</span></a></td>
+                    </div>
+                    <div class="card-header py-3">
+                                <td><a href="#addTypeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">hotel</i> <span>Add Type</span></a></td>
+                    </div>
                     </div>
 
                 </div>
@@ -396,7 +369,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">Ã—</span>
                     </button>
                 </div>
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
@@ -407,6 +380,58 @@
             </div>
         </div>
     </div>
+    <div id="addPlaceModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="addplace" method="post">
+                        <div class="modal-header">						
+                            <h4 class="modal-title">Add Place</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">					
+                            <div class="form-group">
+                                <label>Name Place</label>
+                                <input name="pname" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label for="exampleFormControlFile1">Picture</label>
+                                    <input name="ppicture" type="file" class="form-control-file" id="exampleFormControlFile1">
+                            </div>                               
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" class="btn btn-success" value="Add">
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="addTypeModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="addtype" method="post">
+                        <div class="modal-header">						
+                            <h4 class="modal-title">Add Place</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">					
+                            <div class="form-group">
+                                <label>Name Type</label>
+                                <input name="tname" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                    <label for="exampleFormControlFile1">Picture</label>
+                                    <input name="tpicture" type="file" class="form-control-file" id="exampleFormControlFile1">
+                            </div>                               
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" class="btn btn-success" value="Add">
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

@@ -126,6 +126,27 @@ public class roomDAO extends DBContext{
                 System.out.println(ex);
             }
     }
+    public void addRoom(String rname, String desc,String picture ,int owner,Boolean status, String area,String bednum,String price,String placeID,String typeID){
+        
+            String sql="insert into Room \n" +
+                       "  values(?,?,?,?,?,?,?,?,0,?,?)";
+            try{
+                PreparedStatement st= connection.prepareStatement(sql);
+                st.setString(1, rname);
+                st.setString(2,desc);
+                st.setString(3, picture);
+                st.setInt(4, owner);
+                st.setBoolean(5, status);
+                st.setString(6, area);
+                st.setString(7, bednum);
+                st.setString(8, price);
+                st.setString(9, placeID);
+                st.setString(10, typeID);                
+                st.executeUpdate();
+            }catch(SQLException ex){
+                System.out.println(ex);
+            }
+    }
     public void deleteRoom(String rid)
     {
         String sql ="delete from Room\n" +
@@ -142,10 +163,11 @@ public class roomDAO extends DBContext{
 
     public static void main(String[] args) {
         roomDAO dao = new roomDAO();
-        List<Room> list = dao.getRoomByOwnerId(1);
-        for (Room room : list) {
-            System.out.println(room);
-        }
+        dao.addRoom("giang", "deptrai", "khong", 2, true, "70", "3", "500", "1", "1");
+//        List<Room> list = dao.getRoomByOwnerId(1);
+//        for (Room room : list) {
+//            System.out.println(room);
+//        }
 //        dao.updateRoom("The Galaxy Home", "·Vị trí rất đẹp và thuận tiện ở quận Cầu Giấy\n" +
 //"\n" +
 //"·Gần công viên Cầu Giấy, Lotteria, trung tâm mua sắm với môi trường ngoài trời yên tĩnh\n" +

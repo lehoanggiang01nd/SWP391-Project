@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.AdminServlet;
+package controller.Owner;
 
 import dal.GeneralDAO;
 import dal.roomDAO;
@@ -15,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Place;
 import model.Room;
 import model.Type;
@@ -23,8 +25,8 @@ import model.Type;
  *
  * @author MY LAPTOP
  */
-@WebServlet(name = "roomDetailServlet", urlPatterns = {"/roomdetail"})
-public class roomDetailServlet extends HttpServlet {
+@WebServlet(name = "addRoomServlet", urlPatterns = {"/addroom"})
+public class addRoomServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +45,10 @@ public class roomDetailServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet roomDetailServlet</title>");            
+            out.println("<title>Servlet addRoomServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet roomDetailServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addRoomServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,20 +67,14 @@ public class roomDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
-        String raw_id= request.getParameter("rid");
-        int rid= Integer.parseInt(raw_id);
-        roomDAO db= new roomDAO();
-        Room r= db.getRoomByID(rid);
+        response.setCharacterEncoding("utf-8");  
         GeneralDAO dao = new GeneralDAO();
         List<Place> listP = dao.getAllPlace();
         List<Type> listT = dao.getAllType();
         
-        request.setAttribute("room", r);
         request.setAttribute("listP", listP);
         request.setAttribute("listT", listT);
-        request.getRequestDispatcher("roomDetailAdmin.jsp").forward(request, response);
-        
+        request.getRequestDispatcher("roomOwner.jsp").forward(request, response);
     }
 
     /**
@@ -93,21 +89,13 @@ public class roomDetailServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
-        String submit = request.getParameter("submit");
-        if(submit.equalsIgnoreCase("reset")){
-            String raw_id= request.getParameter("rid");
-            int rid= Integer.parseInt(raw_id);
-            roomDAO db= new roomDAO();
-            Room r= db.getRoomByID(rid);
-            request.setAttribute("room", r);
-            request.getRequestDispatcher("roomDetailAdmin.jsp").forward(request, response);
-        }else{           
-            String raw_id= request.getParameter("rid");
-            int rid= Integer.parseInt(raw_id);
+        response.setCharacterEncoding("utf-8");       
             String rName = request.getParameter("rname");
             String desc = request.getParameter("desc");
-            String owner = request.getParameter("owner");
+            String pic = request.getParameter("picture");
+            HttpSession session = request.getSession();
+            Account a = (Account) session.getAttribute("acc");
+            int oid = a.getId();
             String status_raw = request.getParameter("status");
             Boolean status= true;
             if(status_raw.equalsIgnoreCase("0")){
@@ -116,14 +104,13 @@ public class roomDetailServlet extends HttpServlet {
             String area = request.getParameter("area");
             String bednum = request.getParameter("bednum");
             String price = request.getParameter("price");
-            String rating = request.getParameter("rating");
             String placeId = request.getParameter("placeId");
             String typeId = request.getParameter("typeId");
             roomDAO dao = new roomDAO();
-            dao.updateRoom(rName, desc, owner, status, area, bednum, price, rating, placeId, typeId, rid);           
-            response.sendRedirect("roomdetail?rid="+rid);
-        }
-    }
+            dao.addRoom(rName, desc, pic, oid, status, area, bednum, price, placeId, typeId);
+            response.sendRedirect("ownerroom");
+            
+        }        
 
     /**
      * Returns a short description of the servlet.

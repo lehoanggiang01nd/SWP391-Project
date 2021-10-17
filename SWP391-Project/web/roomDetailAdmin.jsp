@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -58,8 +59,8 @@
     	<div class="col-sm-9">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-                <li><a data-toggle="tab" href="#messages">Menu 1</a></li>
-                <li><a data-toggle="tab" href="#settings">Menu 2</a></li>
+<!--                <li><a data-toggle="tab" href="#messages">Menu 1</a></li>
+                <li><a data-toggle="tab" href="#settings">Menu 2</a></li>-->
               </ul>
 
               
@@ -140,19 +141,21 @@
                             <input readonly class="form-control" name="rating" id="password2" value="${room.rating}">
                           </div>
                       </div>
-                      <div class="form-group">
-                          
-                          <div class="col-xs-6">
-                            <label for="password2"><h4>Location</h4></label>
-                            <input  class="form-control" name="placeId" id="password2" value="${room.placeId}">
-                          </div>
+                      <div class="form-group">                          
+                            <label><h4>Location</h4></label>
+                          <select name="placeId" class="form-select">
+                                <c:forEach var="p" items="${listP}">
+                                    <option value="${p.plateId}">${p.place}</option>
+                                </c:forEach>                        
+                          </select>
                       </div>
-                      <div class="form-group">
-                          
-                          <div class="col-xs-6">
-                            <label for="password2"><h4>Type</h4></label>
-                            <input class="form-control" name="typeId" id="password2" value="${room.typeId}">
-                          </div>
+                      <div class="form-group">                         
+                            <label><h4>Type</h4></label>                            
+                            <select name="typeId" class="form-select">
+                                <c:forEach var="o" items="${listT}">
+                                    <option value="${o.typeId}">${o.type}</option>
+                                </c:forEach>                        
+                          </select>
                       </div>
                       <div class="form-group">
                            <div class="col-xs-12">
