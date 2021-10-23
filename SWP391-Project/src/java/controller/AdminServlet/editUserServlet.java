@@ -20,7 +20,7 @@ import model.Account;
  * @author MY LAPTOP
  */
 @WebServlet(name = "editUser1Servlet", urlPatterns = {"/edituser"})
-public class editUser1Servlet extends HttpServlet {
+public class editUserServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -76,7 +76,7 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
+                        <li class="nav-item">
                 <a class="nav-link" href="user">
                     <i class="fas fa-fw fa-table"></i>
                     <span>User Table</span></a>
@@ -87,9 +87,14 @@
                     <span>Room Table</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="category">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Add Category</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="reportadmin">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Report</span></a>
             </li>           
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -279,35 +284,43 @@
                         <div class="topbar-divider d-none d-sm-block"></div>
                         
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">${sessionScope.acc.lName}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profile">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                                    <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">${sessionScope.acc.lName}</span>
+                                    <img class="img-profile rounded-circle"
+                                         src="img/undraw_profile.svg">
                                 </a>
-                                <a class="dropdown-item" href="changepassword">
-                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Change Password
-                                </a>
-                                <a class="dropdown-item" href="user">
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                     aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="profile">
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Profile
+                                    </a>
+                                    <a class="dropdown-item" href="changepassword">
+                                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Change Password
+                                    </a>
+                                    <c:if test="${sessionScope.acc.isOwner == true}">
+                                        <a class="dropdown-item" href="ownerroom">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            My Room
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${sessionScope.acc.isAdmin == true}">
+                                        <a class="dropdown-item" href="user">
                                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Admin
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="logout">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
+                                        </a>
+                                    </c:if>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="logout">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
 
                     </ul>
 

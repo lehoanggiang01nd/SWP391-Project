@@ -8,7 +8,6 @@ package controller.AdminServlet;
 import dal.reportDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +19,8 @@ import model.Report;
  *
  * @author MY LAPTOP
  */
-@WebServlet(name = "reportAdminServlet", urlPatterns = {"/reportadmin"})
-public class reportAdminServlet extends HttpServlet {
+@WebServlet(name = "responseServlet", urlPatterns = {"/response"})
+public class responseServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +39,10 @@ public class reportAdminServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet reportAdminServlet</title>");            
+            out.println("<title>Servlet responseServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet reportAdminServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet responseServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,11 +60,15 @@ public class reportAdminServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
+        String raw_id = request.getParameter("id");
+        int reportId= Integer.parseInt(raw_id);
         reportDAO dao = new reportDAO();
-        List<Report> list = dao.getReport();
- 
-        request.setAttribute("listRR", list);
-        request.getRequestDispatcher("reportAdmin.jsp").forward(request, response);
+        Report re = dao.getReportByID(reportId);
+        
+        request.setAttribute("report", re);
+        request.getRequestDispatcher("response.jsp").forward(request, response);
     }
 
     /**
@@ -79,7 +82,14 @@ public class reportAdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
+        String res = request.getParameter("responseUser");
+        String raw_reportId = request.getParameter("reportId");
+        int reportid = Integer.parseInt(raw_reportId);
+        reportDAO dao = new reportDAO();
+        dao.response(res, reportid);
+        response.sendRedirect("reportadmin");
     }
 
     /**

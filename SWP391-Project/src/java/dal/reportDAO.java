@@ -37,11 +37,44 @@ public class reportDAO extends DBContext{
             }
         return list;
         }
+    public Report getReportByID(int id){
+        String sql="select * from Report \n" +
+                   "  where ReportID=?";
+        try{
+            PreparedStatement st= connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()){
+                return new Report(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5));
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
+    }
+    public int response(String response,int reportId){
+        String sql="UPDATE Report set Response=? \n" +
+                   "  where ReportID=?";
+        try{
+            PreparedStatement st= connection.prepareStatement(sql);
+            st.setString(1, response);
+            st.setInt(2, reportId);
+            return st.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return 0;    
+    }
     public static void main(String[] args) {
         reportDAO dao = new reportDAO();
-        List<Report> list = dao.getReport();
-        for (Report report : list) {
-            System.out.println(report);
-        }
+//        List<Report> list = dao.getReport();
+//        for (Report report : list) {
+//            System.out.println(report);
+//        }
+        dao.response("OK", 1);
     }
 }
