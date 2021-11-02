@@ -4,6 +4,7 @@
     Author     : ADMIN
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
@@ -12,32 +13,20 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
         <!-- ===============================================-->
         <!--    Document Title-->
         <!-- ===============================================-->
-        <title>Rhea | Landing, Corporate &amp; Business Templatee</title>
+        <title>Online Booking</title>
 
 
         <!-- ===============================================-->
         <!--    Favicons-->
         <!-- ===============================================-->
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
 
-        <!-- Custom styles for this template -->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this page -->
-        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"
-              <!-- Custom styles for this template -->
-
-              <link rel="apple-touch-icon" sizes="180x180" href="rhea/public/assets/img/favicons/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="rhea/public/assets/img/favicons/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="rhea/public/assets/img/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="rhea/public/assets/img/favicons/favicon-16x16.png">
         <link rel="shortcut icon" type="image/x-icon" href="rhea/public/assets/img/favicons/favicon.ico">
@@ -69,67 +58,89 @@
                             <li class="nav-item"><a class="nav-link text-600" href="#featuresVideos">Video</a></li>
                             <li class="nav-item"><a class="nav-link text-600" href="#places">Destinations</a></li>
                             <li class="nav-item"><a class="nav-link text-600" href="#booking">Booking </a></li>
-
-                            <c:if test="${sessionScope.acc != null}">  
-                                <li class="nav-item"><a class="nav-link text-600" href="user">Profile </a></li> 
+                                <c:if test="${sessionScope.acc != null}">  
+                                <li class="nav-item"><a class="nav-link text-600" href="profile">Profile </a></li> 
                                 </c:if>
                                 <c:if test="${sessionScope.acc.isAdmin == true}" >
-                                <li class="nav-item"><a class="nav-link text-600" href="#booking">Admin </a></li>
-                                </c:if>
-                                <c:if test="${sessionScope.acc.isBooker == true}" >
-                                <li class="nav-item"><a class="nav-link text-600" href="#booking">Booking </a></li>
-                                </c:if>
-
-                        </ul>
-
-
-                        <c:if test="${sessionScope.acc != null}">
-                            <div >
-
                                 <li class="nav-item dropdown no-arrow">
-                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -30px; margin-left: 30px">
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600" >User</span>
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">${user.userName}</span>
                                         <img class="img-profile rounded-circle"
-                                             src="img/undraw_profile.svg" style="width:50px;height:50px;">
+                                             src="img/undraw_profile.svg">
                                     </a>
                                     <!-- Dropdown - User Information -->
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                          aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="profile">
                                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Profile
                                         </a>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="user">
                                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Settings
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Activity Log
+                                            Dash board
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <a class="dropdown-item" href="logout" >
                                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Logout
                                         </a>
                                     </div>
                                 </li>
-                            </div>
 
-                        </c:if>
-                        <c:if test="${sessionScope.acc == null}">
-                            <form class="ps-lg-5" action="login">
-                                <button class="btn btn-lg btn-outline-primary order-0" type="submit">Sign In</button>
-                            </form>
-                        </c:if>
+                            </c:if>
+                            <c:if test="${sessionScope.acc.isAdmin == false}" >
+                                <li class="nav-item dropdown no-arrow">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">${user.userName}</span>
+                                        <img class="img-profile rounded-circle"
+                                             src="img/undraw_profile.svg">
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                         aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="profile">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Profile
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="logout" >
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </a>
+                                    </div>
+                                </li>
+
+                            </c:if>
+                            <c:if test="${sessionScope.acc == null}">
+                                <li class="nav-item dropdown no-arrow">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img class="img-profile rounded-circle"
+                                             src="img/undraw_profile.svg">
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                         aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="login">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Login
+                                        </a>
+                                        <a class="dropdown-item" href="register">
+                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Sign Up
+                                        </a>
+                                </li>
+
+                            </c:if>
+
+                        </ul>
 
 
                     </div>
                 </div>
-
             </nav>
-
             <section class="py-0">
                 <div class="bg-holder d-none d-md-block" style="background-image:url(rhea/public/assets/img/illustrations/hero.png);background-position:right bottom;background-size:contain;">
                 </div>
@@ -139,7 +150,7 @@
                     <div class="row align-items-center min-vh-75 my-lg-8">
                         <div class="col-md-7 col-lg-6 text-center text-md-start py-8">
                             <h1 class="mb-4 display-1 lh-sm">Travel around <br class="d-block d-lg-none d-xl-block" />the world</h1>
-                            <p class="mt-4 mb-5 fs-1 lh-base">Plan and book your perfect trip with expert advice, <br class="d-none d-lg-block" />travel tips, destination information and <br class="d-none d-lg-block" />inspiration from us.</p><a class="btn btn-lg btn-primary hover-top" href="#" role="button">Sign Up Now</a>
+                            <p class="mt-4 mb-5 fs-1 lh-base">Plan and book your perfect trip with expert advice, <br class="d-none d-lg-block" />travel tips, destination information and <br class="d-none d-lg-block" />inspiration from us.</p><a class="btn btn-lg btn-primary hover-top" href="register.jsp" role="button">Sign Up Now</a>
                         </div>
                     </div>
                 </div>
@@ -153,124 +164,49 @@
                 <div class="container">
                     <div class="row flex-md-center">
                         <div class="col-md-11 col-lg-4 py-md-3 px-4 px-md-3 px-lg-0 px-xl-2 order-lg-1">
-                            <h1 class="fw-bold fs-md-3 fs-xl-5">Amazing places to enjoy your travel</h1>
+                            <h1 class="fw-bold fs-md-3 fs-xl-5">Amazing room to enjoy your travel</h1>
                             <hr class="text-primary my-4 my-lg-3 my-xl-4" style="height:3px; width:70px;" />
-                            <p class="lh-lg">Etiam facilisis, sapien quis porta dignissim, orci nisi pharetra dui, varius vehicula ligula nulla sit amet lorem. Aenean in vestibulum quam. Cras commodo varius neque, non gravida diam ultrices nec. Cras nulla mauris, fermentum nec libero in.</p><a class="btn btn-lg btn-primary hover-top" href="#" role="button">Explore</a>
+                            <a class="btn btn-lg btn-primary hover-top" href="#" role="button">See All</a>
                         </div>
                         <div class="col-lg-8 order-lg-0 order-1 px-4 px-md-3 py-8 py-md-3">
                             <div class="carousel slide" id="carouselExampleControlsNoTouching" data-bs-touch="false" data-bs-interval="false">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         <div class="row h-100">
-                                            <div class="col-md-4 mb-3 mb-md-0">
-                                                <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/maldives.png" alt="" />
-                                                    <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                        <div class="pt-3"><span class="badge bg-primary">$860</span></div>
-                                                        <div class="ps-3 d-flex justify-content-between align-items-center">
-                                                            <h5 class="text-white">Maldives</h5>
-                                                            <h6 class="text-600">3 days</h6>
+                                            <c:forEach items="${requestScope.rooms1}" var="r">
+                                                <div class="col-md-4 mb-3 mb-md-0">
+                                                    <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/${r.picture}" alt="" />
+                                                        <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
+                                                            <div class="pt-3"><span class="badge bg-primary">${r.price}đ</span></div>
+                                                            <div class="ps-3 d-flex justify-content-between align-items-center">
+                                                                <h5 class="text-white">${r.rName}</h5>
+
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-3 mb-md-0">
-                                                <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/indonesia.png" alt="" />
-                                                    <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                        <div class="pt-3"><span class="badge bg-primary">$860</span></div>
-                                                        <div class="ps-3 d-flex justify-content-between align-items-center">
-                                                            <h5 class="text-white">Indonesia</h5>
-                                                            <h6 class="text-600">7 days</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-3 mb-md-0">
-                                                <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/kathmandu.png" alt="" />
-                                                    <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                        <div class="pt-3"><span class="badge bg-primary">$340</span></div>
-                                                        <div class="ps-3 d-flex justify-content-between align-items-center">
-                                                            <h5 class="text-white">Kathmandu</h5>
-                                                            <h6 class="text-600">5 days</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                </div>    
+                                            </c:forEach>
                                         </div>
                                     </div>
                                     <div class="carousel-item">
                                         <div class="row h-100">
-                                            <div class="col-md-4 mb-3 mb-md-0">
-                                                <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/maldives.png" alt="" />
-                                                    <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                        <div class="pt-3"><span class="badge bg-primary">$340</span></div>
-                                                        <div class="ps-3 d-flex justify-content-between align-items-center">
-                                                            <h5 class="text-white">Maldives</h5>
-                                                            <h6 class="text-600">5 days</h6>
+                                            <c:forEach items="${requestScope.rooms2}" var="r">
+                                                <div class="col-md-4 mb-3 mb-md-0">
+                                                    <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/${r.picture}" alt="" />
+                                                        <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
+                                                            <div class="pt-3"><span class="badge bg-primary">${r.price}đ</span></div>
+                                                            <div class="ps-3 d-flex justify-content-between align-items-center">
+                                                                <h5 class="text-white">${r.rName}</h5>
+
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-3 mb-md-0">
-                                                <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/indonesia.png" alt="" />
-                                                    <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                        <div class="pt-3"><span class="badge bg-primary">$540</span></div>
-                                                        <div class="ps-3 d-flex justify-content-between align-items-center">
-                                                            <h5 class="text-white">Indonesia</h5>
-                                                            <h6 class="text-600">5 days</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-3 mb-md-0">
-                                                <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/kathmandu.png" alt="" />
-                                                    <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                        <div class="pt-3"><span class="badge bg-primary">$640</span></div>
-                                                        <div class="ps-3 d-flex justify-content-between align-items-center">
-                                                            <h5 class="text-white">Kathmandu</h5>
-                                                            <h6 class="text-600">6 days</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                </div>    
+                                            </c:forEach>
+
                                         </div>
                                     </div>
-                                    <div class="carousel-item">
-                                        <div class="row h-100">
-                                            <div class="col-md-4 mb-3 mb-md-0">
-                                                <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/kathmandu.png" alt="" />
-                                                    <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                        <div class="pt-3"><span class="badge bg-primary">$540</span></div>
-                                                        <div class="ps-3 d-flex justify-content-between align-items-center">
-                                                            <h5 class="text-white">Kathmandu</h5>
-                                                            <h6 class="text-600">5 days</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-3 mb-md-0">
-                                                <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/maldives.png" alt="" />
-                                                    <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                        <div class="pt-3"><span class="badge bg-primary">$860</span></div>
-                                                        <div class="ps-3 d-flex justify-content-between align-items-center">
-                                                            <h5 class="text-white">Maldives</h5>
-                                                            <h6 class="text-600">3 days</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 mb-3 mb-md-0">
-                                                <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/indonesia.png" alt="" />
-                                                    <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                        <div class="pt-3"><span class="badge bg-primary">$860</span></div>
-                                                        <div class="ps-3 d-flex justify-content-between align-items-center">
-                                                            <h5 class="text-white">Indonesia</h5>
-                                                            <h6 class="text-600">7 days</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="position-relative mt-5"><a class="carousel-control-prev carousel-icon z-index-2" href="#carouselExampleControlsNoTouching" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next carousel-icon z-index-2" href="#carouselExampleControlsNoTouching" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></a></div>
                             </div>
@@ -285,115 +221,6 @@
 
 
 
-
-            <!-- ============================================-->
-            <!-- <section> begin ============================-->
-            <section class="pt-5" id="featuresVideos">
-
-                <div class="container">
-                    <div class="row flex-center mb-5">
-                        <div class="col-lg-8 text-center">
-                            <h1 class="fw-bold fs-md-3 fs-lg-4 fs-xl-5">Featured videos</h1>
-                            <hr class="mx-auto text-primary my-4" style="height:3px; width:70px;" />
-                            <p class="mx-auto">Aliquam sodales vitae ex tincidunt consectetur. Etiam eleifend malesuada magna, at imperdiet justo euismod eu. Aliquam vel imperdet mi, et convallis eros. Duis fermentum fringilla nisl at vulputate. Nunc nec lorem faucibus, molestie nisi id, elementum sem. Sed vulputate tempor augue a efficitur urna, ultrices eu. Duis vel turpis et arcu.</p>
-                        </div>
-                    </div>
-                    <div class="row flex-center">
-                        <div class="col-12">
-                            <div class="carousel slide" id="carouselExampleIndicators" data-bs-touch="false" data-bs-interval="false">
-                                <div class="row align-items-center">
-                                    <div class="col-12 col-xxl-7 px-2">
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active h-100">
-                                                <div class="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY">
-                                                    <iframe src="https://www.youtube.com/embed/zLeLttVbFs8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-                                                </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY">
-                                                    <iframe src="https://www.youtube.com/embed/nUI8f_hvKZw" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-                                                </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY">
-                                                    <iframe src="https://www.youtube.com/embed/xf86EzuLXu0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-                                                </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="player" data-plyr-provider="youtube" data-plyr-embed-id="bTqVqk7FSmY">
-                                                    <iframe src="https://www.youtube.com/embed/YkEd_aorIiI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-md-3 col-xxl-2 pt-3 pt-md-0">
-                                        <div class="carousel-indicators">
-                                            <div class="row h-100 w-100">
-                                                <div class="col-12 px-1">
-                                                    <button class="active" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" aria-current="true" aria-label="Slide 1"><img class="d-block" src="assets/img/gallery/maldives-v.png" alt="..." /></button>
-                                                </div>
-                                                <div class="col-12 px-1">
-                                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"><img class="d-block" src="assets/img/gallery/tanzania.png" alt="..." /></button>
-                                                </div>
-                                                <div class="col-12 px-1">
-                                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"><img class="d-block" src="assets/img/gallery/kathmandu-v.png" alt="..." /></button>
-                                                </div>
-                                                <div class="col-12 px-1">
-                                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"><img class="d-block" src="assets/img/gallery/chaina.png" alt="..." /></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6 col-lg-3 px-xxl-0">
-                                        <div class="row">
-                                            <div class="col-12 col-md-11 col-lg-12 col-xl-10 col-xxl-7 px-xxl-0 ps-lg-0 ps-md-4">
-                                                <div class="card h-100 py-md-2 active" style="min-height:113px">
-                                                    <div class="card-body d-flex flex-column justify-content-center">
-                                                        <p class="mb-0 fw-semi-bold text-dark"> When go to maldives</p>
-                                                        <p class="card-text"><small class="text-800">0.20</small></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-11 col-lg-12 col-xl-10 col-xxl-7 px-xxl-0 ps-lg-0 ps-md-4">
-                                                <div class="card h-100 py-md-2" style="min-height:113px">
-                                                    <div class="card-body d-flex flex-column justify-content-center">
-                                                        <p class="mb-0 fw-semi-bold text-500">Tanzania’s deadly pink lake</p>
-                                                        <p class="card-text"><small class="text-800">05.24</small></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-11 col-lg-12 col-xl-10 col-xxl-7 px-xxl-0 ps-lg-0 ps-md-4">
-                                                <div class="card h-100 py-md-2" style="min-height:113px">
-                                                    <div class="card-body d-flex flex-column justify-content-center">
-                                                        <p class="mb-0 fw-semi-bold text-500"> Top things to do in Kathmandu</p>
-                                                        <p class="card-text"><small class="text-800">06.12</small></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-11 col-lg-12 col-xl-10 col-xxl-7 px-xxl-0 ps-lg-0 ps-md-4">
-                                                <div class="card h-100 py-md-3" style="min-height:113px">
-                                                    <div class="card-body d-flex flex-column justify-content-center">
-                                                        <p class="mb-0 fw-semi-bold text-500"> Exploring China’s creative capital</p>
-                                                        <p class="card-text"><small class="text-800">0.20 </small></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end of .container-->
-
-            </section>
-            <!-- <section> close ============================-->
-            <!-- ============================================-->
-
-
-
-
             <!-- ============================================-->
             <!-- <section> begin ============================-->
             <section class="pt-5">
@@ -401,9 +228,9 @@
                 <div class="container">
                     <div class="row flex-center mb-5">
                         <div class="col-lg-8 text-center">
-                            <h1 class="fw-bold fs-md-3 fs-lg-4 fs-xl-5">Travel categories</h1>
+                            <h1 class="fw-bold fs-md-3 fs-lg-4 fs-xl-5">Place</h1>
                             <hr class="mx-auto text-primary my-4" style="height:3px; width:70px;" />
-                            <p class="mx-auto">Maecenas et eros non quam ultricies interdum. Proin ac dolor vel neque ullamcorper blandit vitae et felis. Morbi ante urna, imperdiet vel neque vitae, porta ullamcorper metus. Quisque bibendum venenatis eros sed commodo. Nullam ultrices tortor non diam ullamcorper auctor. In urna tellus, auctor sit amet est ut, scelerisque volutpat diam.</p>
+
                         </div>
                     </div>
                     <div class="row h-100 flex-center">
@@ -413,133 +240,16 @@
                                     <div class="carousel-inner">
                                         <div class="carousel-item active" data-bs-interval="10000">
                                             <div class="row h-100">
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="assets/img/gallery/food.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Food</h5>
+                                                <c:forEach items= "${requestScope.places1}" var="p"> 
+                                                    <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
+                                                        <div class="card h-100 w-100 text-white"><a class="stretched-link" href="place?id=${p.placeId}"><img class="img-fluid" style="height:200px; width:100%;" src="rhea/public/assets/img/gallery/${p.img}" alt="" /></a>
+                                                            <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
+                                                                <h5 class="text-white fs--1">${p.place}</h5>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="assets/img/gallery/backpacking.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Backpacking</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="rhea/public/assets/img/gallery/beaches.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Beaches,coast and island</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="rhea/public/assets/img/gallery/art-culture.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Art and culture</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="rhea/public/assets/img/gallery/wild.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Wildlife and nature</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="rhea/public/assets/img/gallery/hill.jpg" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Hill and nature</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item" data-bs-interval="2000">
-                                            <div class="row h-100">
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="rhea/public/assets/img/gallery/food.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Food</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="rhea/public/assets/img/gallery/backpacking.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Backpacking</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="rhea/public/assets/img/gallery/beaches.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Beaches,coast and island</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="rhea/public/assets/img/gallery/art-culture.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Art and culture</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="rhea/public/assets/img/gallery/wild.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Wildlife and nature</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="assets/img/gallery/hill.jpg" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Hill and nature</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <div class="row h-100 offset-lg-2">
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="assets/img/gallery/food.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Food</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="assets/img/gallery/backpacking.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Backpacking</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="assets/img/gallery/beaches.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Beaches,coast and island</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="assets/img/gallery/art-culture.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Art and culture</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                    <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" src="assets/img/gallery/wild.png" alt="" /></a>
-                                                        <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
-                                                            <h5 class="text-white fs--1">Wildlife and nature</h5>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </c:forEach>
+
                                             </div>
                                         </div>
                                     </div>
@@ -567,92 +277,35 @@
                 <div class="container">
                     <div class="row flex-center mb-5">
                         <div class="col-lg-8 text-center">
-                            <h1 class="fw-bold fs-md-3 fs-lg-4 fs-xl-5">Traveller's Experiences</h1>
+                            <h1 class="fw-bold fs-md-3 fs-lg-4 fs-xl-5">Type of room</h1>
                             <hr class="mx-auto text-primary my-4" style="height:3px; width:70px;" />
+
                         </div>
-                        <div class="carousel slide" id="carouselExampleDark" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active" data-bs-interval="10000">
-                                    <div class="row h-100 flex-center">
-                                        <div class="col-12 col-lg-7 mb-3 mb-md-0">
-                                            <div class="card h-100">
-                                                <div class="card-body d-flex flex-center flex-column">
-                                                    <p class="text-center card-text mb-5">“Curabitur posuere ullamcorper pulvinar. Donec dignissim bibendum leo, at faucibus enim aliquam eu. Nullam quis pulvinar diam, ac elementum urna. Integer id vehicula tortor, nec pulvinar libero. Ut elit elit, fringilla a nisi ut, dapibus eleifend quam.” </p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div class="d-flex align-items-center"><img class="img-fluid" src="rhea/public/assets/img/gallery/user-2.png" alt="" /></div>
+                    </div>
+                    <div class="row h-100 flex-center">
+                        <div class="row flex-lg-center">
+                            <div class="col-md-12">
+                                <div class="carousel slide" id="carouselCategory" data-bs-touch="false" data-bs-interval="false">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active" data-bs-interval="10000">
+                                            <div class="row h-100">
+                                                <c:forEach items= "${requestScope.types1}" var="p"> 
+                                                    <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
+                                                        <div class="card h-100 w-100 text-white"><a class="stretched-link" href="type?id=${p.typeId}"><img class="img-fluid" style="height:200px; width:100%;" src="rhea/public/assets/img/gallery/${p.img}" alt="" /></a>
+                                                            <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
+                                                                <h5 class="text-white fs--1">${p.type}</h5>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="mt-3 text-center">
-                                                        <h6 class="text-1000 fw-bold">Donquixote Law</h6>
-                                                        <p class="fs--1 fw-normal mb-0">Traveller</p>
-                                                    </div>
-                                                </div>
+                                                </c:forEach>
                                             </div>
                                         </div>
+
+
                                     </div>
-                                </div>
-                                <div class="carousel-item" data-bs-interval="2000">
-                                    <div class="row h-100 flex-center">
-                                        <div class="col-12 col-lg-7 mb-3 mb-md-0">
-                                            <div class="card h-100">
-                                                <div class="card-body d-flex flex-center flex-column">
-                                                    <p class="text-center card-text mb-5">“Curabitur posuere ullamcorper pulvinar. Donec dignissim bibendum leo, at faucibus enim aliquam eu. Nullam quis pulvinar diam, ac elementum urna. Integer id vehicula tortor, nec pulvinar libero. Ut elit elit, fringilla a nisi ut, dapibus eleifend quam.” </p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div class="d-flex align-items-center"><img class="img-fluid" src="rhea/public/assets/img/gallery/user-1.png" alt="" /></div>
-                                                    </div>
-                                                    <div class="mt-3 text-center">
-                                                        <h6 class="text-1000 fw-bold">Viezh Robert</h6>
-                                                        <p class="fs--1 fw-normal mb-0">Traveller</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="row mt-4">
+                                        <div class="col-12 position-relative"><a class="carousel-control-prev carousel-icon z-index-2" href="#carouselCategory" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next carousel-icon z-index-2" href="#carouselCategory" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></a></div>
                                     </div>
-                                </div>
-                                <div class="carousel-item" data-bs-interval="3000">
-                                    <div class="row h-100 flex-center">
-                                        <div class="col-12 col-lg-7 mb-3 mb-md-0">
-                                            <div class="card h-100">
-                                                <div class="card-body d-flex flex-center flex-column">
-                                                    <p class="text-center card-text mb-5">“Curabitur posuere ullamcorper pulvinar. Donec dignissim bibendum leo, at faucibus enim aliquam eu. Nullam quis pulvinar diam, ac elementum urna. Integer id vehicula tortor, nec pulvinar libero. Ut elit elit, fringilla a nisi ut, dapibus eleifend quam.” </p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div class="d-flex align-items-center"><img class="img-fluid" src="rhea/public/assets/img/gallery/user-2.png" alt="" /></div>
-                                                    </div>
-                                                    <div class="mt-3 text-center">
-                                                        <h6 class="text-1000 fw-bold">Donquixote Law</h6>
-                                                        <p class="fs--1 fw-normal mb-0">Traveller</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="row h-100 flex-center">
-                                        <div class="col-12 col-lg-7 mb-3 mb-md-0">
-                                            <div class="card h-100">
-                                                <div class="card-body d-flex flex-center flex-column">
-                                                    <p class="text-center card-text mb-5">“Curabitur posuere ullamcorper pulvinar. Donec dignissim bibendum leo, at faucibus enim aliquam eu. Nullam quis pulvinar diam, ac elementum urna. Integer id vehicula tortor, nec pulvinar libero. Ut elit elit, fringilla a nisi ut, dapibus eleifend quam.” </p>
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <div class="d-flex align-items-center"><img class="img-fluid" src="rhea/public/assets/img/gallery/user-1.png" alt="" /></div>
-                                                    </div>
-                                                    <div class="mt-3 text-center">
-                                                        <h6 class="text-1000 fw-bold">Viezh Robert</h6>
-                                                        <p class="fs--1 fw-normal mb-0">Traveller</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row px-3 px-md-0">
-                                <div class="col-12 position-relative d-flex flex-center">
-                                    <ol class="carousel-indicators">
-                                        <li class="active" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"></li>
-                                        <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
-                                        <li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
-                                        <li data-bs-target="#carouselExampleDark" data-bs-slide-to="3"></li>
-                                    </ol>
                                 </div>
                             </div>
                         </div>
@@ -664,7 +317,6 @@
             <!-- <section> close ============================-->
             <!-- ============================================-->
 
-
             <section id="booking">
                 <div class="bg-holder" style="background-image:url(rhea/public/assets/img//gallery/booking.png);background-position:center;background-size:cover;">
                 </div>
@@ -675,35 +327,42 @@
                         <div class="col-12 py-8 text-white">
                             <div class="d-flex flex-column flex-center">
                                 <h2 class="text-white fs-2 fs-md-3">WE WILL SEE YOU</h2>
-                                <h1 class="text-white fs-2 fs-sm-4 fs-lg-7 fw-bold">Enjoy 30% Off On First Trip</h1>
+                                <h1 class="text-white fs-2 fs-sm-4 fs-lg-7 fw-bold">Travel around Viet Nam</h1>
                             </div>
-                            <form class="row gy-2 gx-md-2 gx-lg-4 flex-center my-6">
+                            <form action="search" method="get" class="row gy-2 gx-md-2 gx-lg-4 flex-center my-6">
                                 <div class="col-6 col-md-3">
-                                    <label class="visually-hidden" for="inlineFormSelectPref">Destinations</label>
-                                    <select class="form-select" id="inlineFormSelectPref">
-                                        <option selected="">Destinations</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <label class="visually-hidden" for="autoSizingSelect">Number of Beds</label>
+                                    <select name="numBed" class="form-select" id="autoSizingSelect">
+                                        <option selected="" value="0">Number of Beds</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-6 col-md-3">
+                                    <label class="visually-hidden" for="inlineFormSelectPref">Place</label>
+                                    <select class="form-select"  name="place">
+                                        <option selected="" value="0">Place</option>
+                                        <c:forEach items= "${requestScope.places}" var="q"> 
+                                            <option value="1">${q.place}</option>           
+                                        </c:forEach>
                                     </select>
                                 </div>
                                 <div class="col-6 col-md-3">
-                                    <label class="visually-hidden" for="autoSizingSelect">Package</label>
-                                    <select class="form-select" id="autoSizingSelect">
-                                        <option selected="">Package</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <label class="visually-hidden" for="autoSizingSelect">Type</label>
+                                    <select name="type" class="form-select" id="autoSizingSelect">
+                                        <option selected="" value="0">Type</option>
+                                        <c:forEach items= "${requestScope.types}" var="p"> 
+                                            <option value="${p.typeId}">${p.type}</option>           
+                                        </c:forEach>                                    
                                     </select>
                                 </div>
-                                <div class="col-6 col-md-3">
-                                    <label class="visually-hidden" for="date">Date</label>
-                                    <div class="input-group">
-                                        <input class="form-control" id="date" type="date" />
-                                    </div>
-                                </div>
+                                
                                 <div class="col-6 col-md-auto">
-                                    <button class="btn btn-lg btn-primary" type="submit">Book Now</button>
+                                    <input type="hidden" name="page" value="1"/>
+                                    <input type="submit" name="submit" value="Search" class="btn btn-lg btn-primary"/>
+                                    
                                 </div>
                             </form>
                         </div>
@@ -786,23 +445,231 @@
         <script src="rhea/public/vendors/plyr/plyr.polyfilled.min.js"></script>
         <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
         <script src="rhea/public/assets/js/theme.js"></script>
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
-
-        <!-- Page level plugins -->
-        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="js/demo/datatables-demo.js"></script>
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+        <!--   Core JS Files   -->
+        <script src="assets/js/core/jquery.min.js"></script>
+        <script src="assets/js/core/popper.min.js"></script>
+        <script src="assets/js/core/bootstrap-material-design.min.js"></script>
+        <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+        <!-- Plugin for the momentJs  -->
+        <script src="assets/js/plugins/moment.min.js"></script>
+        <!--  Plugin for Sweet Alert -->
+        <script src="assets/js/plugins/sweetalert2.js"></script>
+        <!-- Forms Validations Plugin -->
+        <script src="assets/js/plugins/jquery.validate.min.js"></script>
+        <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+        <script src="assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+        <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+        <script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
+        <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+        <script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+        <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+        <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
+        <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+        <script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
+        <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+        <script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
+        <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+        <script src="assets/js/plugins/fullcalendar.min.js"></script>
+        <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+        <script src="assets/js/plugins/jquery-jvectormap.js"></script>
+        <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+        <script src="assets/js/plugins/nouislider.min.js"></script>
+        <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+        <!-- Library for adding dinamically elements -->
+        <script src="assets/js/plugins/arrive.min.js"></script>
+        <!--  Google Maps Plugin    -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+        <!-- Chartist JS -->
+        <script src="assets/js/plugins/chartist.min.js"></script>
+        <!--  Notifications Plugin    -->
+        <script src="assets/js/plugins/bootstrap-notify.js"></script>
+        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+        <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+        <script src="assets/demo/demo.js"></script>
+        <script>
+            $(document).ready(function () {
+                $().ready(function () {
+                    $sidebar = $('.sidebar');
+
+                    $sidebar_img_container = $sidebar.find('.sidebar-background');
+
+                    $full_page = $('.full-page');
+
+                    $sidebar_responsive = $('body > .navbar-collapse');
+
+                    window_width = $(window).width();
+
+                    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+                    if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                        if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                            $('.fixed-plugin .dropdown').addClass('open');
+                        }
+
+                    }
+
+                    $('.fixed-plugin a').click(function (event) {
+                        // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                        if ($(this).hasClass('switch-trigger')) {
+                            if (event.stopPropagation) {
+                                event.stopPropagation();
+                            } else if (window.event) {
+                                window.event.cancelBubble = true;
+                            }
+                        }
+                    });
+
+                    $('.fixed-plugin .active-color span').click(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
+
+                        var new_color = $(this).data('color');
+
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-color', new_color);
+                        }
+
+                        if ($full_page.length != 0) {
+                            $full_page.attr('filter-color', new_color);
+                        }
+
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.attr('data-color', new_color);
+                        }
+                    });
+
+                    $('.fixed-plugin .background-color .badge').click(function () {
+                        $(this).siblings().removeClass('active');
+                        $(this).addClass('active');
+
+                        var new_color = $(this).data('background-color');
+
+                        if ($sidebar.length != 0) {
+                            $sidebar.attr('data-background-color', new_color);
+                        }
+                    });
+
+                    $('.fixed-plugin .img-holder').click(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $(this).parent('li').siblings().removeClass('active');
+                        $(this).parent('li').addClass('active');
+
+
+                        var new_image = $(this).find("img").attr('src');
+
+                        if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            $sidebar_img_container.fadeOut('fast', function () {
+                                $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                                $sidebar_img_container.fadeIn('fast');
+                            });
+                        }
+
+                        if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $full_page_background.fadeOut('fast', function () {
+                                $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                                $full_page_background.fadeIn('fast');
+                            });
+                        }
+
+                        if ($('.switch-sidebar-image input:checked').length == 0) {
+                            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                        }
+
+                        if ($sidebar_responsive.length != 0) {
+                            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                        }
+                    });
+
+                    $('.switch-sidebar-image input').change(function () {
+                        $full_page_background = $('.full-page-background');
+
+                        $input = $(this);
+
+                        if ($input.is(':checked')) {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar_img_container.fadeIn('fast');
+                                $sidebar.attr('data-image', '#');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page_background.fadeIn('fast');
+                                $full_page.attr('data-image', '#');
+                            }
+
+                            background_image = true;
+                        } else {
+                            if ($sidebar_img_container.length != 0) {
+                                $sidebar.removeAttr('data-image');
+                                $sidebar_img_container.fadeOut('fast');
+                            }
+
+                            if ($full_page_background.length != 0) {
+                                $full_page.removeAttr('data-image', '#');
+                                $full_page_background.fadeOut('fast');
+                            }
+
+                            background_image = false;
+                        }
+                    });
+
+                    $('.switch-sidebar-mini input').change(function () {
+                        $body = $('body');
+
+                        $input = $(this);
+
+                        if (md.misc.sidebar_mini_active == true) {
+                            $('body').removeClass('sidebar-mini');
+                            md.misc.sidebar_mini_active = false;
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                        } else {
+
+                            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
+                            setTimeout(function () {
+                                $('body').addClass('sidebar-mini');
+
+                                md.misc.sidebar_mini_active = true;
+                            }, 300);
+                        }
+
+                        // we simulate the window Resize so the charts will get updated in realtime.
+                        var simulateWindowResize = setInterval(function () {
+                            window.dispatchEvent(new Event('resize'));
+                        }, 180);
+
+                        // we stop the simulation of Window Resize after the animations are completed
+                        setTimeout(function () {
+                            clearInterval(simulateWindowResize);
+                        }, 1000);
+
+                    });
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                // Javascript method's body can be found in assets/js/demos.js
+                md.initDashboardPageCharts();
+
+            });
+        </script>
+
     </body>
 
 </html>

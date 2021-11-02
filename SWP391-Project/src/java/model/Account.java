@@ -21,11 +21,12 @@ public class Account {
     private boolean isBooker;
     private boolean isOwner;
     private String picture;
+    private boolean block;
 
     public Account() {
     }
 
-    public Account(int id, String userName, String passWord, String email, String fName, String lName, String phone, boolean isAdmin, boolean isBooker, boolean isOwner, String picture) {
+    public Account(int id, String userName, String passWord, String email, String fName, String lName, String phone, boolean isAdmin, boolean isBooker, boolean isOwner, String picture, boolean block) {
         this.id = id;
         this.userName = userName;
         this.passWord = passWord;
@@ -37,8 +38,10 @@ public class Account {
         this.isBooker = isBooker;
         this.isOwner = isOwner;
         this.picture = picture;
+        this.block = block;
     }
 
+    
     public int getId() {
         return id;
     }
@@ -127,6 +130,15 @@ public class Account {
         this.picture = picture;
     }
 
+    public boolean isBlock() {
+        return block;
+    }
+
+    public void setBlock(boolean block) {
+        this.block = block;
+    }
+
+    
     @Override
     public String toString() {
         return "Account{" + "id=" + id + ", userName=" + userName + ", passWord=" + passWord + ", email=" + email + ", fName=" + fName + ", lName=" + lName + ", phone=" + phone + ", isAdmin=" + isAdmin + ", isBooker=" + isBooker + ", isOwner=" + isOwner + ", picture=" + picture + '}';

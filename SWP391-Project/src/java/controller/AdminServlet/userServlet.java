@@ -21,7 +21,7 @@ import model.Account;
  *
  * @author MY LAPTOP
  */
-@WebServlet(name = "userServlet", urlPatterns = {"/user"})
+@WebServlet(name = "userServlet", urlPatterns = {"/profile"})
 public class userServlet extends HttpServlet {
 
     /**
@@ -58,10 +58,20 @@ public class userServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(true);
+        Account a = (Account) session.getAttribute("acc");
+        if(a.isIsAdmin()==true){
+        DAO dao = new DAO();
+        List<Account> list = dao.getAllAccount();
+        
+        request.setAttribute("listU", list);
+        request.getRequestDispatcher("tables.jsp").forward(request, response);
+        }else{
+            response.sendRedirect("404.html");
+        }
+       
     }
 
     /**
@@ -75,8 +85,7 @@ public class userServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+           }
 
     /**
      * Returns a short description of the servlet.
