@@ -10,27 +10,24 @@ package model;
  * @author ADMIN
  */
 public class Place {
-    private int plateId;
+    private int pId;
     private String place, img;
 
     public Place() {
     }
 
-    public Place(int plateId, String place, String img) {
-        this.plateId = plateId;
+    public Place(int pId, String place, String img) {
+        this.pId = pId;
         this.place = place;
         this.img = img;
     }
 
-
-    
-
-    public int getPlateId() {
-        return plateId;
+    public int getpId() {
+        return pId;
     }
 
-    public void setPlateId(int plateId) {
-        this.plateId = plateId;
+    public void setpId(int pId) {
+        this.pId = pId;
     }
 
     public String getPlace() {

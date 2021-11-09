@@ -252,7 +252,7 @@
                                                 <p class="card-category">${requestScope.error}</p>
                                             </div>
                                             <div class="card-body">
-                                                <form action="edit_user" method="post">
+                                                <form action="edituser?id=${requestScope.user.id}" method="post">
                                                     <div class="row">
 
                                                         <div class="col-md-6">
@@ -311,18 +311,14 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label class="bmd-label-floating">Block: &emsp;</label>
-                                                                <select id="country" class="bg-light" name="block">
-                                                                    <option value="${block}" selected>${block}</option>
-                                                                    <option value="Block">Block</option>
-                                                                    <option value="no">No</option>
-                                                                </select> 
-                                                            </div>
+                                                            
                                                         </div>
                                                     </div>
 
-                                                    <input type="submit" class="btn btn-primary pull-right" value="Update">
+                                                    <input type="submit" name="submit" class="btn btn-primary pull-right" value="Update">
+                                                    <c:set value="Block" var="test"/>
+                                                                <c:if test="${requestScope.block==test}"><input type="submit" name="submit" class="btn btn-primary pull-right" value="Unblock"></c:if>
+                                                                <c:if test="${requestScope.block!=test}"><input type="submit" name="submit" class="btn btn-primary pull-right" value="Block"></c:if>
                                                     <div class="clearfix"></div>
                                                 </form>
                                             </div>

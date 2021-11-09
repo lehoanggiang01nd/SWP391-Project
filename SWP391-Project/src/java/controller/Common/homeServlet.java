@@ -64,17 +64,13 @@ public class homeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         GeneralDAO db= new GeneralDAO();
-        ArrayList<Place> plas= db.getAllPlace();
+        ArrayList<Place> plas= db.getTop6Place();
         ArrayList<Place> plas1= new ArrayList<>();
-        ArrayList<Type> tys= db.getAllType();
+        ArrayList<Type> tys= db.getTop6Type();
         ArrayList<Type> tys1= new ArrayList<>();
         ArrayList<Room> rms= db.get6Room();
         ArrayList<Room> rms1= new ArrayList<>();
         ArrayList<Room> rms2 = new ArrayList<>();
-        for(int i=0; i<6; i++){
-            plas1.add(plas.get(i));
-            tys1.add(tys.get(i));
-        }
         for(int i=0;i<rms.size(); i++ ){
             if(i<3){
                 rms1.add(rms.get(i));
@@ -82,8 +78,6 @@ public class homeServlet extends HttpServlet {
                 rms2.add(rms.get(i));
             }
         }
-        request.setAttribute("types1", tys1);
-        request.setAttribute("places1", plas1);
         request.setAttribute("types", tys);
         request.setAttribute("places", plas);
         request.setAttribute("rooms1", rms1);

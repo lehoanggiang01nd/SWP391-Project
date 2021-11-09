@@ -145,7 +145,7 @@
                             <label><h4>Location</h4></label>
                           <select name="placeId" class="form-select">
                                 <c:forEach var="p" items="${listP}">
-                                    <option value="${p.plateId}">${p.place}</option>
+                                    <option value="${p.pId}">${p.place}</option>
                                 </c:forEach>                        
                           </select>
                       </div>

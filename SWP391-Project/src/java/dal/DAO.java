@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import model.Account;
 
 /**
@@ -220,12 +221,11 @@ public int updateAccount(int id,String uname, String fname, String lname, String
             }
         return 0;
     }
-    public int editAdmin(int id, String role, String block){
+    public int editAdmin(int id, String role){
         boolean isAdmin= false, isBooker= false, isOwner=false, isBlock=false;
             if(role.equalsIgnoreCase("Admin")) isAdmin = true;
             if(role.equalsIgnoreCase("Booker")) isBooker = true;
             if(role.equalsIgnoreCase("Owner")) isOwner = true;
-            if(block.equalsIgnoreCase("Block")) isBlock=true;
             String sql="Update Account set isAdmin=?, "
                     + "isBooker=?, isOwner=?, Block=? where userId=?";
             try{
@@ -252,6 +252,51 @@ public int updateAccount(int id,String uname, String fname, String lname, String
             System.out.println(e);
         }
         return;
+    }
+     private int randomNumber(int min, int max) {
+        Random generator = new Random();
+        return generator.nextInt((max - min) + 1) + min;
+    }
+    public String generatePass(){
+    String alpha = "abcdefghijklmnopqrstuvwxyz"; // a-z
+    String alphaUpperCase = alpha.toUpperCase(); // A-Z
+    String digits = "0123456789"; // 0-9
+    String ALPHA_NUMERIC = alpha + alphaUpperCase + digits;
+ 
+    StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            int number = randomNumber(0, ALPHA_NUMERIC.length() - 1);
+            char ch = ALPHA_NUMERIC.charAt(number);
+            sb.append(ch);
+        }
+        return sb.toString();
+}
+    
+     public Account checkUserNameEmail(String userName, String email){
+         String sql="select * from Account where UserName=? and Email = ?";
+        try{
+            PreparedStatement st= connection.prepareStatement(sql);
+            st.setString(1, userName);
+            st.setString(2, email);
+            ResultSet rs= st.executeQuery();
+            while(rs.next()){
+                return new Account(rs.getInt(1),
+                            rs.getString(2),
+                            rs.getString(3),
+                            rs.getString(4),
+                            rs.getString(5),
+                            rs.getString(6),
+                            rs.getString(7),
+                            rs.getBoolean(8),
+                            rs.getBoolean(9),
+                            rs.getBoolean(10),
+                            rs.getString(11),
+                            rs.getBoolean(12));
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return null;
     }
     
 //    public static void main(String[] args) {

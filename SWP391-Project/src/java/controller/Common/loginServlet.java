@@ -41,7 +41,7 @@ public class loginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet loginServlet</title>");            
+            out.println("<title>Servlet loginServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet loginServlet at " + request.getContextPath() + "</h1>");
@@ -63,17 +63,17 @@ public class loginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Cookie arr[] = request.getCookies();
-            if(arr != null){
-                for (Cookie o : arr) {
-                if(o.getName().equals("userC")){
-                 request.setAttribute("emailC",o.getValue());            
-                  }
-                if(o.getName().equals("passC")){
-                 request.setAttribute("passwordC",o.getValue());               
-                    }
-                }           
+        if (arr != null) {
+            for (Cookie o : arr) {
+                if (o.getName().equals("userC")) {
+                    request.setAttribute("emailC", o.getValue());
+                }
+                if (o.getName().equals("passC")) {
+                    request.setAttribute("passwordC", o.getValue());
+                }
             }
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
@@ -90,29 +90,32 @@ public class loginServlet extends HttpServlet {
         String username = request.getParameter("user");
         String password = request.getParameter("pass");
         String remember = request.getParameter("remember");
-            DAO dao = new DAO();
-            Account a= dao.login(username, password);
-            if(a == null){
-                request.setAttribute("mess","Wrong username or password");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
-            }else{
-                HttpSession session = request.getSession();
-                session.setAttribute("acc", a);
-                session.setMaxInactiveInterval(6969);
-                
-                Cookie u =new Cookie("userC", username);
-                Cookie p =new Cookie("passC", password);
-                u.setMaxAge(60*60*24*365);
-                if(remember != null){
-                  p.setMaxAge(60*60*24*365); 
-                }else{
-                  p.setMaxAge(0);
-                }
-                
-                response.addCookie(u);
-                response.addCookie(p);
-                response.sendRedirect("homepage");
+        DAO dao = new DAO();
+        Account a = dao.login(username, password);
+        if (a == null) {
+            request.setAttribute("mess", "Wrong username or password");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else if (a.isBlock()) {
+            request.setAttribute("mess", "Your account is blocked");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("acc", a);
+            session.setMaxInactiveInterval(6969);
+
+            Cookie u = new Cookie("userC", username);
+            Cookie p = new Cookie("passC", password);
+            u.setMaxAge(60 * 60 * 24 * 365);
+            if (remember != null) {
+                p.setMaxAge(60 * 60 * 24 * 365);
+            } else {
+                p.setMaxAge(0);
             }
+
+            response.addCookie(u);
+            response.addCookie(p);
+            response.sendRedirect("homepage");
+        }
     }
 
     /**

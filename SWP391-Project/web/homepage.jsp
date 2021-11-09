@@ -4,6 +4,9 @@
     Author     : ADMIN
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
@@ -12,32 +15,20 @@
 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
         <!-- ===============================================-->
         <!--    Document Title-->
         <!-- ===============================================-->
-        <title>Rhea | Landing, Corporate &amp; Business Templatee</title>
+        <title>Online Booking</title>
 
 
         <!-- ===============================================-->
         <!--    Favicons-->
         <!-- ===============================================-->
-        <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
 
-        <!-- Custom styles for this template -->
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this page -->
-        <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"
-              <!-- Custom styles for this template -->
-
-              <link rel="apple-touch-icon" sizes="180x180" href="rhea/public/assets/img/favicons/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="rhea/public/assets/img/favicons/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="rhea/public/assets/img/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="rhea/public/assets/img/favicons/favicon-16x16.png">
         <link rel="shortcut icon" type="image/x-icon" href="rhea/public/assets/img/favicons/favicon.ico">
@@ -69,19 +60,16 @@
                             <li class="nav-item"><a class="nav-link text-600" href="#featuresVideos">Video</a></li>
                             <li class="nav-item"><a class="nav-link text-600" href="#places">Destinations</a></li>
                             <li class="nav-item"><a class="nav-link text-600" href="#booking">Booking </a></li>
-                            
-                        </ul>
-
-
-                        <c:if test="${sessionScope.acc != null}">
-                            <div>
-
+                                <c:if test="${sessionScope.acc != null}">  
+                                <li class="nav-item"><a class="nav-link text-600" href="profile">Profile </a></li> 
+                                </c:if>
+                                <c:if test="${sessionScope.acc.isAdmin == true}" >
                                 <li class="nav-item dropdown no-arrow">
-                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: -30px; margin-left: 30px">
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600" >${sessionScope.acc.lName}</span>
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">${user.userName}</span>
                                         <img class="img-profile rounded-circle"
-                                             src="img/undraw_profile.svg" style="width:50px;height:50px;">
+                                             src="img/undraw_profile.svg">
                                     </a>
                                     <!-- Dropdown - User Information -->
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -90,44 +78,71 @@
                                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Profile
                                         </a>
-                                        <a class="dropdown-item" href="changepassword">
-                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Change Password
-                                        </a>
-                                        <c:if test="${sessionScope.acc.isOwner == true}">
-                                        <a class="dropdown-item" href="ownerroom">
-                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            My Room
-                                        </a>
-                                        </c:if>
-                                        <c:if test="${sessionScope.acc.isAdmin == true}">
                                         <a class="dropdown-item" href="user">
-                                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Admin
+                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Dash board
                                         </a>
-                                        </c:if>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="logout">
+                                        <a class="dropdown-item" href="logout" >
                                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                             Logout
                                         </a>
                                     </div>
                                 </li>
-                            </div>
-                        </c:if>
-                        
-                        <c:if test="${sessionScope.acc == null}">
-                            <form class="ps-lg-5" action="login">
-                                <button class="btn btn-lg btn-outline-primary order-0" type="submit">Sign In</button>
-                            </form>
-                        </c:if>
+
+                            </c:if>
+                            <c:if test="${sessionScope.acc.isAdmin == false}" >
+                                <li class="nav-item dropdown no-arrow">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">${user.userName}</span>
+                                        <img class="img-profile rounded-circle"
+                                             src="img/undraw_profile.svg">
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                         aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="profile">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Profile
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="logout" >
+                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Logout
+                                        </a>
+                                    </div>
+                                </li>
+
+                            </c:if>
+                            <c:if test="${sessionScope.acc == null}">
+                                <li class="nav-item dropdown no-arrow">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <img class="img-profile rounded-circle"
+                                             src="img/undraw_profile.svg">
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                         aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="login">
+                                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Login
+                                        </a>
+                                        <a class="dropdown-item" href="register">
+                                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                            Sign Up
+                                        </a>
+                                </li>
+
+                            </c:if>
+
+                        </ul>
 
 
                     </div>
                 </div>
-
             </nav>
-
             <section class="py-0">
                 <div class="bg-holder d-none d-md-block" style="background-image:url(rhea/public/assets/img/illustrations/hero.png);background-position:right bottom;background-size:contain;">
                 </div>
@@ -164,7 +179,8 @@
                                                 <div class="col-md-4 mb-3 mb-md-0">
                                                     <div class="card h-100 text-white hover-top"><img class="img-fluid h-100" src="rhea/public/assets/img/gallery/${r.picture}" alt="" />
                                                         <div class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-dark-gradient">
-                                                            <div class="pt-3"><span class="badge bg-primary">${r.price}đ</span></div>
+                                                            <div class="pt-3"><span class="badge bg-primary"><fmt:formatNumber type = "number" 
+                                                                              maxFractionDigits = "3" value = "${r.price}" />VND</span></div>
                                                             <div class="ps-3 d-flex justify-content-between align-items-center">
                                                                 <h5 class="text-white">${r.rName}</h5>
 
@@ -227,9 +243,9 @@
                                     <div class="carousel-inner">
                                         <div class="carousel-item active" data-bs-interval="10000">
                                             <div class="row h-100">
-                                                <c:forEach items= "${requestScope.places1}" var="p"> 
+                                                <c:forEach items= "${requestScope.places}" var="p"> 
                                                     <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                        <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" style="height:200px; width:100%;" src="rhea/public/assets/img/gallery/${p.img}" alt="" /></a>
+                                                        <div class="card h-100 w-100 text-white"><a class="stretched-link" href="place?id=${p.pId}&page=1"><img class="img-fluid" style="height:200px; width:100%;" src="rhea/public/assets/img/gallery/${p.img}" alt="" /></a>
                                                             <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
                                                                 <h5 class="text-white fs--1">${p.place}</h5>
                                                             </div>
@@ -240,9 +256,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-4">
-                                        <div class="col-12 position-relative"><a class="carousel-control-prev carousel-icon z-index-2" href="#carouselCategory" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next carousel-icon z-index-2" href="#carouselCategory" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></a></div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -276,9 +290,9 @@
                                     <div class="carousel-inner">
                                         <div class="carousel-item active" data-bs-interval="10000">
                                             <div class="row h-100">
-                                                <c:forEach items= "${requestScope.types1}" var="p"> 
+                                                <c:forEach items= "${requestScope.types}" var="p"> 
                                                     <div class="col-6 col-sm-4 col-xl-2 mb-3 hover-top px-2">
-                                                        <div class="card h-100 w-100 text-white"><a class="stretched-link" href="!#"><img class="img-fluid" style="height:200px; width:100%;" src="rhea/public/assets/img/gallery/${p.img}" alt="" /></a>
+                                                        <div class="card h-100 w-100 text-white"><a class="stretched-link" href="type?id=${p.typeId}&page=1"><img class="img-fluid" style="height:200px; width:100%;" src="rhea/public/assets/img/gallery/${p.img}" alt="" /></a>
                                                             <div class="card-img-overlay d-flex align-items-end bg-dark-gradient">
                                                                 <h5 class="text-white fs--1">${p.type}</h5>
                                                             </div>
@@ -289,9 +303,6 @@
                                         </div>
 
 
-                                    </div>
-                                    <div class="row mt-4">
-                                        <div class="col-12 position-relative"><a class="carousel-control-prev carousel-icon z-index-2" href="#carouselCategory" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span></a><a class="carousel-control-next carousel-icon z-index-2" href="#carouselCategory" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span></a></div>
                                     </div>
                                 </div>
                             </div>
@@ -316,36 +327,40 @@
                                 <h2 class="text-white fs-2 fs-md-3">WE WILL SEE YOU</h2>
                                 <h1 class="text-white fs-2 fs-sm-4 fs-lg-7 fw-bold">Travel around Viet Nam</h1>
                             </div>
-                            <form class="row gy-2 gx-md-2 gx-lg-4 flex-center my-6">
-                                <div class="col-6 col-md-3">
-                                    <label class="visually-hidden" for="inlineFormSelectPref">Place</label>
-                                    <select class="form-select" >
-                                        <option selected="">Place</option>
-                                        <c:forEach items= "${requestScope.places}" var="p"> 
-                                            <option value="1">${p.place}</option>           
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="col-6 col-md-3">
-                                    <label class="visually-hidden" for="autoSizingSelect">Type</label>
-                                    <select class="form-select" id="autoSizingSelect">
-                                        <option selected="">Type</option>
-                                        <c:forEach items= "${requestScope.types}" var="p"> 
-                                            <option value="1">${p.type}</option>           
-                                        </c:forEach>                                    </select>
-                                </div>
+                            <form action="search_room" method="get" class="row gy-2 gx-md-2 gx-lg-4 flex-center my-6">
                                 <div class="col-6 col-md-3">
                                     <label class="visually-hidden" for="autoSizingSelect">Number of Beds</label>
-                                    <select class="form-select" id="autoSizingSelect">
-                                        <option selected="">Number of Beds</option>
+                                    <select name="numBed" class="form-select" id="autoSizingSelect">
+                                        <option selected="" value="0">Number of Beds</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                     </select>
                                 </div>
 
+                                <div class="col-6 col-md-3">
+                                    <label class="visually-hidden" for="inlineFormSelectPref">Place</label>
+                                    <select class="form-select"  name="place">
+                                        <option selected="" value="0">Place</option>
+                                        <c:forEach items= "${requestScope.places}" var="q"> 
+                                            <option value="${q.pId}">${q.place}</option>           
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="col-6 col-md-3">
+                                    <label class="visually-hidden" for="autoSizingSelect">Type</label>
+                                    <select name="type" class="form-select" id="autoSizingSelect">
+                                        <option selected="" value="0">Type</option>
+                                        <c:forEach items= "${requestScope.types}" var="p"> 
+                                            <option value="${p.typeId}">${p.type}</option>           
+                                        </c:forEach>                                    
+                                    </select>
+                                </div>
+
                                 <div class="col-6 col-md-auto">
-                                    <button class="btn btn-lg btn-primary" type="submit">Search</button>
+                                    <input type="hidden" name="page" value="1"/>
+                                    <input type="submit" name="submit" value="Search" class="btn btn-lg btn-primary"/>
+
                                 </div>
                             </form>
                         </div>
@@ -428,66 +443,52 @@
         <script src="rhea/public/vendors/plyr/plyr.polyfilled.min.js"></script>
         <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
         <script src="rhea/public/assets/js/theme.js"></script>
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin-2.min.js"></script>
-
-        <!-- Page level plugins -->
-        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="js/demo/datatables-demo.js"></script>
 
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
+
         <!--   Core JS Files   -->
-<!--        <script src="assets/js/core/jquery.min.js"></script>
+        <script src="assets/js/core/jquery.min.js"></script>
         <script src="assets/js/core/popper.min.js"></script>
         <script src="assets/js/core/bootstrap-material-design.min.js"></script>
-        <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>-->
+        <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
         <!-- Plugin for the momentJs  -->
-<!--        <script src="assets/js/plugins/moment.min.js"></script>-->
+        <script src="assets/js/plugins/moment.min.js"></script>
         <!--  Plugin for Sweet Alert -->
-<!--        <script src="assets/js/plugins/sweetalert2.js"></script>-->
+        <script src="assets/js/plugins/sweetalert2.js"></script>
         <!-- Forms Validations Plugin -->
-<!--        <script src="assets/js/plugins/jquery.validate.min.js"></script>-->
+        <script src="assets/js/plugins/jquery.validate.min.js"></script>
         <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-<!--        <script src="assets/js/plugins/jquery.bootstrap-wizard.js"></script>
-        	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select 
+        <script src="assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+        <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
         <script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
-          Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ 
+        <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
         <script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-          DataTables.net Plugin, full documentation here: https://datatables.net/  
+        <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
         <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
-        	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  
+        <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
         <script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
-         Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput 
+        <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
         <script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
-          Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    
+        <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
         <script src="assets/js/plugins/fullcalendar.min.js"></script>
-         Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ 
+        <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
         <script src="assets/js/plugins/jquery-jvectormap.js"></script>
-          Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ 
+        <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
         <script src="assets/js/plugins/nouislider.min.js"></script>
-         Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert 
+        <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-         Library for adding dinamically elements 
+        <!-- Library for adding dinamically elements -->
         <script src="assets/js/plugins/arrive.min.js"></script>
-          Google Maps Plugin    
+        <!--  Google Maps Plugin    -->
         <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-         Chartist JS 
+        <!-- Chartist JS -->
         <script src="assets/js/plugins/chartist.min.js"></script>
-          Notifications Plugin    
+        <!--  Notifications Plugin    -->
         <script src="assets/js/plugins/bootstrap-notify.js"></script>
-         Control Center for Material Dashboard: parallax effects, scripts for the example pages etc 
+        <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
-         Material Dashboard DEMO methods, don't include it in your project! 
-        <script src="assets/demo/demo.js"></script>-->
+        <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+        <script src="assets/demo/demo.js"></script>
         <script>
             $(document).ready(function () {
                 $().ready(function () {
