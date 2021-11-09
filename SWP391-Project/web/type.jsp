@@ -264,7 +264,7 @@
                                         <ul class="pagination modal-1">
                                             <li><a href="type?id=${type.typeId}&page=1" class="prev">&laquo</a></li>
                                                 <c:forEach begin="1" end="${requestScope.end}" var="i">
-                                                <li><a href="place?id=${type.typeId}&page=${i}">${i}</a></li>    
+                                                <li><a href="type?id=${type.typeId}&page=${i}">${i}</a></li>    
                                                 </c:forEach>
                                             <li><a href="#" class="next">&raquo;</a></li>
                                         </ul>

@@ -70,7 +70,7 @@ public class TypeServlet extends HttpServlet {
         String page_raw= request.getParameter("page");
         int page= Integer.parseInt(page_raw);
         int count= list.size();
-        int pageNum=6;
+        int pageNum=3;
         int endPage = count/pageNum;
         if(count%pageNum!=0){
             endPage +=1;
@@ -111,7 +111,7 @@ public class TypeServlet extends HttpServlet {
         String page_raw= request.getParameter("page");
         int page= Integer.parseInt(page_raw);
         int count= list.size();
-        int pageNum=6;
+        int pageNum=3;
         int endPage = count/pageNum;
         if(count%pageNum!=0){
             endPage +=1;
@@ -128,7 +128,7 @@ public class TypeServlet extends HttpServlet {
         }
         request.setAttribute("end", endPage);
         request.setAttribute("type", p);
-        request.setAttribute("rooms", list);
+        request.setAttribute("rooms", room);
         request.getRequestDispatcher("type.jsp").forward(request, response);
     }
 

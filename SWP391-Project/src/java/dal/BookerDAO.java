@@ -39,9 +39,9 @@ public class BookerDAO extends DBContext {
                 rs.getString("Picture"), rs.getInt("OwnerID"), rs.getBoolean("Status"), rs.getInt("Area"), 
                         rs.getInt("BedNumber"), rs.getDouble("Price"), rs.getFloat("Rating"), rs.getInt("PlaceID"),
                 rs.getInt("TypeID"));
-                list.add(new Booking(rs.getInt("BookingID"), rs.getInt("IDCustomer"), rs.getInt("IDOwner"),
-                rs.getDate("CheckIn"), rs.getDate("CheckOut"), rs.getFloat("TotalPrice"),
-                rs.getString("Status"), room));
+                list.add(new Booking(rs.getInt("BookingID"),rs.getInt("IDCustomer"), room,
+                rs.getString("CheckIn"), rs.getString("CheckOut"), rs.getDouble("TotalPrice"),
+                rs.getString("Status")));
             }
         }catch(SQLException ex){
             System.out.println(ex);
